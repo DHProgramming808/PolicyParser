@@ -32,10 +32,6 @@ _SCHEMA_EXAMPLE = {
 
 
 def _candidates_for_prompt(retrieved: List[RetrievedConcept], max_codes: int = 30, max_per_code: int = 2):
-    """
-    Convert RetrievedConcept list into compact candidates to keep prompt size bounded.
-    Group by code, keep top concepts per code by retrieval score.
-    """
     by_code: Dict[str, List[RetrievedConcept]] = {}
     for rc in retrieved:
         code = rc.concept.code
@@ -60,13 +56,6 @@ def _candidates_for_prompt(retrieved: List[RetrievedConcept], max_codes: int = 3
 
 
 class OpenAIInferenceModel(CodeInferenceModel):
-    """
-    Drop-in replacement for MockCodeInferenceModel using OpenAI.
-
-    Keeps:
-      - method signature: infer_codes(input_text, retrieved_concepts)
-      - output: List[InferredCode]
-    """
 
     def __init__(
         self,
@@ -91,6 +80,9 @@ class OpenAIInferenceModel(CodeInferenceModel):
         )
 
         user_prompt = (
+            "You are a text parser that extracts relevant codes from text based on candidate codes and concepts. \n",
+            "Given input text and a list of candidate codes with associated concepts, your task is to identify which codes are most relevant to the input text. \n",
+            "return the most relevant codes along with a score (betwween 0 and 1) of how well the concept matches the text, a confidence (between 0 and 1) in the score you gave the code, a list of matched concepts that support the inference, and a brief justification for why the code was selected based on the input text. \n",
             "POLICY TEXT:\n"
             f"{input_text}\n\n"
             "CANDIDATE CODES (ranked):\n"
@@ -101,7 +93,7 @@ class OpenAIInferenceModel(CodeInferenceModel):
             "- Choose up to 25 codes.\n"
             "- confidence and score must be numbers between 0 and 1.\n"
             "- matched_concepts must be drawn from the candidate concepts.\n"
-            "- justification must be short and specific.\n"
+            "- justification must be short and specific. If possible, point to the exact line in the text that supports the inference.\n"
             "- Return ONLY JSON.\n"
         )
 
