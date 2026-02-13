@@ -84,7 +84,6 @@ class OpenAIInferenceModel(CodeInferenceModel):
         self._timeout_s = timeout_s
 
     def infer_codes(self, input_text: str, retrieved_concepts: List[RetrievedConcept]) -> List[InferredCode]:
-        # Options later: for now fixed caps to keep prompt stable
         candidates = _candidates_for_prompt(
             retrieved_concepts,
             max_codes=30,
