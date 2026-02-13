@@ -13,7 +13,7 @@ A lightweight RAG-based inference engine that maps input policy text to code-con
 
 PolicyParser/
 │
-├── src/
+├── aiparser/
 │ ├── run_pipeline.py # CLI entrypoint
 │ ├── pipeline.py # Core orchestration
 │ ├── csv_loader.py # Concept dictionary loader
@@ -38,7 +38,7 @@ PolicyParser/
 ### Clone the repository
 
 ```bash
-git clone <repo-url>
+git clone 
 cd PolicyParser
 
 python -m venv policyparser
@@ -48,7 +48,7 @@ policyparser\Scripts\activate
 # v1 only uses standard Python library
 # pip install -r requirements.txt
 
-python -m src.run_pipeline --input [input.csv] --output [output.json]
+python -m aiparser.run_pipeline --input [input.csv] --output [output.json]
 # default will pull policies_cleaned.csv
 # other files should be placed in PolicyParser/ (root)
 

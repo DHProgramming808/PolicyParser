@@ -3,23 +3,23 @@ from pathlib import Path
 from dataclasses import asdict
 from typing import List, Dict, Any
 
-from src.audit_utils import sha256_file
-from src.csv_loader import load_concepts_from_csv, CsvSchema
-from src.input_csv_loader import InputCsvSchema, load_input_data_from_csv
-from src.pipeline import CodeInferencePipeline, PipelineConfig
-from src.models import AuditTrail, DictionaryAudit, InferenceResult, InferredCode, Concept, Input, Output
+from aiparser.audit_utils import sha256_file
+from aiparser.csv_loader import load_concepts_from_csv, CsvSchema
+from aiparser.input_csv_loader import InputCsvSchema, load_input_data_from_csv
+from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
+from aiparser.models import AuditTrail, DictionaryAudit, InferenceResult, InferredCode, Concept, Input, Output
 
-from src.retriever.token_retriever import TokenRetriever
-from src.llm.mock_inference import MockCodeInferenceModel
+from aiparser.retriever.token_retriever import TokenRetriever
+from aiparser.llm.mock_inference import MockCodeInferenceModel
 
-from src.audit_utils import env_fingerprint, new_run_id, utc_now_iso
+from aiparser.audit_utils import env_fingerprint, new_run_id, utc_now_iso
 
 def main(input: str, output: str):
     # load concepts and input data initialize
-    concepts_csv_path = Path("src/data/hcpcs.csv")
-    input_path = Path("src/" + input)
+    concepts_csv_path = Path("aiparser/data/hcpcs.csv")
+    input_path = Path("aiparser/" + input)
 
-    outputs_path = Path("src/")
+    outputs_path = Path("aiparser/")
     outputs_file_name = output
 
     concepts = load_concepts_from_csv(concepts_csv_path, CsvSchema())
