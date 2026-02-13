@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div className="pb-hero-title">Parser</div>
                 <div className="pb-hero-subtitle">Find Concept-Codes in Text</div>
                 <p className="pb-hero-desc">
-                  Paste text (20,000+ words is fine), run inference, and get matched codes with confidence,
+                  Paste text, run inference, and get matched codes with confidence,
                   concepts, and an audit trail.
                 </p>
                 <div className="pb-actions">

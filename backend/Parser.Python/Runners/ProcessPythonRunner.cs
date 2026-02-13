@@ -8,7 +8,7 @@ namespace Parser.Python.Runners;
 public sealed class ProcessPythonRunner : IPythonRunner
 {
     // TODO move these to appsettings
-    private const string PythonExe = "python";
+    private const string PythonExe = "python3";
     private const string PythonModule = "aiparser.entrypoints.find_codes_entrypoint";
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromMinutes(10);
 
@@ -21,12 +21,11 @@ public sealed class ProcessPythonRunner : IPythonRunner
             ? JsonSerializer.Serialize(new {text, options = options.Value})
             : JsonSerializer.Serialize(new {text});
 
-        var workingDir = FindRepoRootOrThrow();
+        var workingDir = "/app"; //FindRepoRootOrThrow();
 
         var processStartInfo = new ProcessStartInfo
         {
             FileName = PythonExe,
-            Arguments = $"-m {PythonModule}",
             WorkingDirectory = workingDir,
             RedirectStandardInput = true,
             RedirectStandardOutput = true,
@@ -36,6 +35,13 @@ public sealed class ProcessPythonRunner : IPythonRunner
             StandardOutputEncoding = Encoding.UTF8,
             StandardErrorEncoding = Encoding.UTF8
         };
+
+        processStartInfo.ArgumentList.Add("-m");
+        processStartInfo.ArgumentList.Add(PythonModule);
+
+        // Ensure python can import aiparser
+        processStartInfo.Environment["PYTHONUNBUFFERED"] = "1";
+        processStartInfo.Environment["PYTHONPATH"] = workingDir;
 
         using var proc = new Process
         {
