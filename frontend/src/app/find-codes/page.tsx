@@ -6,10 +6,21 @@ import Papa from "papaparse";
 type UseCaseKey = "text" | "batchJson" | "csv";
 
 const DEFAULT_OPTIONS = { top_k: 50, min_retrieval_score: 0.005 };
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;
+
+// If NEXT_PUBLIC_API_BASE_URL is set (dev/local), use it.
+// If empty/undefined (prod), use same-origin + CloudFront behavior (/api/* -> ALB).
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(/\/+$/, "");
+
+// All backend endpoints are rooted at /api/...
+function apiUrl(path: string) {
+  // Ensure we always have a leading slash
+  const p = path.startsWith("/") ? path : `/${path}`;
+  // In prod API_BASE == "" so this becomes "/api/..."
+  return `${API_BASE}${p}`;
+}
 
 async function postJson(path: string, body: any) {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(apiUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -103,13 +114,19 @@ export default function Page() {
 
   const prettyResult = useMemo(() => (result ? JSON.stringify(result, null, 2) : ""), [result]);
 
+  // Health check:
+  // - In dev: API_BASE can be http://localhost:5127 and /health works
+  // - In prod: API_BASE is "" so we need CloudFront to route /health -> ALB
+  //   Cheapest approach: create a second CloudFront behavior for /health (or /health*)
+  //   If you DON'T want that, just remove this health check UI.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`${API_BASE}/health`, { cache: "no-store" })
+        const res = await fetch(apiUrl("/health"), { cache: "no-store" });
         if (!res.ok) throw new Error();
-        await res.json();
+        // Your backend /health might return plain text, so don't force JSON parse.
+        await res.text();
         if (cancelled) return;
         setHealthOk(true);
         setHealthLabel("Backend: Online");
@@ -249,7 +266,8 @@ export default function Page() {
                 </button>
 
                 <div className="pb-muted">
-                  POST <span style={{ color: "var(--pb-ink)" }}>/api/use-cases/json/find-codes</span>
+                  POST{" "}
+                  <span style={{ color: "var(--pb-ink)" }}>/api/v1/use-cases/json/find-codes</span>
                 </div>
               </div>
             </div>
@@ -287,7 +305,7 @@ export default function Page() {
 
                 <div className="pb-muted">
                   POST{" "}
-                  <span style={{ color: "var(--pb-ink)" }}>/api/use-cases/json/find-codes-batch-json</span>
+                  <span style={{ color: "var(--pb-ink)" }}>/api/v1/use-cases/json/find-codes-batch-json</span>
                 </div>
               </div>
             </div>
@@ -333,7 +351,7 @@ export default function Page() {
 
               <div className="pb-muted">
                 Sends to{" "}
-                <span style={{ color: "var(--pb-ink)" }}>/api/use-cases/json/find-codes-batch-json</span>
+                <span style={{ color: "var(--pb-ink)" }}>/api/v1/use-cases/json/find-codes-batch-json</span>
               </div>
             </div>
           </AccordionSection>
