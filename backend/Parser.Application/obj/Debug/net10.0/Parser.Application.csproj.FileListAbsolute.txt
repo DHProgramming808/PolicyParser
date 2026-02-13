@@ -1,0 +1,16 @@
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.csproj.AssemblyReference.cache
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.GeneratedMSBuildEditorConfig.editorconfig
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.AssemblyInfoInputs.cache
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.AssemblyInfo.cs
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.csproj.CoreCompileInputs.cache
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.sourcelink.json
+N:\Github\PolicyParser\backend\Parser.Application\bin\Debug\net10.0\Parser.Application.deps.json
+N:\Github\PolicyParser\backend\Parser.Application\bin\Debug\net10.0\Parser.Application.dll
+N:\Github\PolicyParser\backend\Parser.Application\bin\Debug\net10.0\Parser.Application.pdb
+N:\Github\PolicyParser\backend\Parser.Application\bin\Debug\net10.0\Parser.Python.dll
+N:\Github\PolicyParser\backend\Parser.Application\bin\Debug\net10.0\Parser.Python.pdb
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.A.5F8939E4.Up2Date
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.dll
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\refint\Parser.Application.dll
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\Parser.Application.pdb
+N:\Github\PolicyParser\backend\Parser.Application\obj\Debug\net10.0\ref\Parser.Application.dll
