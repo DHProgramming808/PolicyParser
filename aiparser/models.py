@@ -73,10 +73,12 @@ class RetrievalAudit:
 class ModelAudit:
     model_name: str
     model_version: str
-    params: Dict[str, Any]
+    params: Optional[Dict[str, Any]] = None
 
     prompt_template: Optional[str] = None
     raw_output: Optional[str] = None
+    
+    model_info: Optional[Dict[str, Any]] = None
 
 
 @dataclass
@@ -93,5 +95,4 @@ class AuditTrail:
     dictionary: Optional[DictionaryAudit] = None
     retrieval: Optional[RetrievalAudit] = None
     model: Optional[ModelAudit] = None
-    model: ModelAudit
     environment: Dict[str, Any] = None

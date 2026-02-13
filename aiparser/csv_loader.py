@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 import csv
 from dataclasses import dataclass
 from typing import List, Dict, Optional
@@ -7,7 +8,7 @@ from typing import List, Dict, Optional
 from .models import Concept
 
 
-@dataclass(frozen=True)
+@dataclass
 class CsvSchema:
     code_column: str = "code"
     concept_column: str = "description"
@@ -29,7 +30,7 @@ def load_concepts_from_csv(conceptpair_csv_path: str, schema: CsvSchema, *, enco
             concept = row.get(schema.concept_column or "").strip()
 
             if not code:
-                print(f"Warning: Missing code in row {row_index}. Skipping this row.")
+                sys.stderr.write(f"Warning: Missing code in row {row_index}. Skipping this row.")
                 continue
 
             metadata = {k: v for k, v in row.items() if k not in [schema.code_column, schema.concept_column]}

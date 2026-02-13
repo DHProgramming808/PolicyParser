@@ -1,4 +1,6 @@
 import json
+import sys
+
 from pathlib import Path
 from dataclasses import asdict
 from typing import List, Dict, Any
@@ -23,14 +25,14 @@ def main(input: str, output: str):
     outputs_file_name = output
 
     concepts = load_concepts_from_csv(concepts_csv_path, CsvSchema())
-    print(f"Loaded {len(concepts)} concepts from data directory.")
+    sys.stderr.write(f"Loaded {len(concepts)} concepts from data directory.")
     inputs = load_input_data_from_csv(input_path, InputCsvSchema()) 
-    print(f"Loaded {len(inputs)} input items from {input_path}.")
+    sys.stderr.write(f"Loaded {len(inputs)} input items from {input_path}.")
 
     #initialize pipeline components
     retriever = TokenRetriever() # modular retriever that can later be swapped out for an embedding RAG retriever
     retriever.index(concepts)
-    print("[test] Retriever indexed concepts.")
+    sys.stderr.write("[test] Retriever indexed concepts.")
 
     model = MockCodeInferenceModel() # modular inference model that can later be swapped out for an actual LLM-based inference model
     pipeline = CodeInferencePipeline(

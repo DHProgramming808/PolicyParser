@@ -33,10 +33,10 @@ def load_input_data_from_csv(input_csv_path: str, schema: InputCsvSchema, *, enc
             text = row.get(schema.text_column or "").strip()
 
             if not id:
-                print(f"Warning: Missing id in row {row_index}. Skipping this row.")
+                sys.stderr.write(f"Warning: Missing id in row {row_index}. Skipping this row.")
                 continue
             if not text:
-                print(f"Warning: Missing text in row {row_index}. Skipping this row.")
+                sys.stderr.write(f"Warning: Missing text in row {row_index}. Skipping this row.")
                 continue
 
             inputs.append(Input(id=input_id, name=name, text=text))

@@ -1,4 +1,6 @@
 from __future__ import annotations
+import sys
+import json
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
@@ -12,7 +14,7 @@ from .models import AuditTrail, RetrievalAudit, ModelAudit
 @dataclass
 class PipelineConfig:
     top_k: int = 15
-    min_retrieval_score: float = 0.05
+    min_retrieval_score: float = 0.005
 
 
 class CodeInferencePipeline:
@@ -35,7 +37,7 @@ class CodeInferencePipeline:
         retrieved_raw = self._retriever.retrieve(input_text, top_k=self._config.top_k)
         retrieved = [r for r in retrieved_raw if r.score >= self._config.min_retrieval_score]
 
-        print(f"Retrieved {len(retrieved)} concepts after applying min_retrieval_score filter.")
+        # sys.stderr.write(f"Retrieved {len(retrieved)} concepts after applying min_retrieval_score filter.")
         retrieval_audit = RetrievalAudit(
             retriever_name = type(self._retriever).__name__,
             retreiver_version = "1.0", # hardcoded for now, should be dynamic
@@ -43,6 +45,9 @@ class CodeInferencePipeline:
             min_retrieval_score = self._config.min_retrieval_score,
             candidates = self._to_candidate_audit(retrieved_raw)
         )
+
+        if audit_trail is not None:
+            self._audit_trail = audit_trail
 
         if self._audit_trail is not None:
             self._audit_trail.retrieval = retrieval_audit
