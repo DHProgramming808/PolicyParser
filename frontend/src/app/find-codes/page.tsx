@@ -6,15 +6,17 @@ import Papa from "papaparse";
 type UseCaseKey = "text" | "batchJson" | "csv";
 
 const DEFAULT_OPTIONS = { top_k: 50, min_retrieval_score: 0.005 };
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
 async function postJson(path: string, body: any) {
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
   const text = await res.text();
+
   let data: any;
   try {
     data = JSON.parse(text);
@@ -25,6 +27,7 @@ async function postJson(path: string, body: any) {
   if (!res.ok) {
     throw new Error(`HTTP ${res.status}: ${JSON.stringify(data)}`);
   }
+
   return data;
 }
 
@@ -104,7 +107,7 @@ export default function Page() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/health", { cache: "no-store" });
+        const res = await fetch(`${API_BASE}/health`, { cache: "no-store" })
         if (!res.ok) throw new Error();
         await res.json();
         if (cancelled) return;
@@ -127,7 +130,7 @@ export default function Page() {
     setTextLoading(true);
     try {
       const body = { id: textId, name: textName, text: textBody, options: DEFAULT_OPTIONS };
-      const data = await postJson("/api/use-cases/json/find-codes", body);
+      const data = await postJson("/api/v1/use-cases/json/find-codes", body);
       setResult(data);
     } catch (e: any) {
       setError(e?.message ?? String(e));
@@ -142,7 +145,7 @@ export default function Page() {
     setBatchLoading(true);
     try {
       const parsed = JSON.parse(batchJson);
-      const data = await postJson("/api/use-cases/json/find-codes-batch-json", parsed);
+      const data = await postJson("/api/v1/use-cases/json/find-codes-batch-json", parsed);
       setResult(data);
     } catch (e: any) {
       setError(e?.message ?? String(e));
@@ -176,7 +179,7 @@ export default function Page() {
       if (items.length === 0) throw new Error("No valid rows found. Expected columns: id, name, text.");
 
       const body = { items, options: DEFAULT_OPTIONS };
-      const data = await postJson("/api/use-cases/json/find-codes-batch-json", body);
+      const data = await postJson("/api/v1/use-cases/json/find-codes-batch-json", body);
       setResult(data);
     } catch (e: any) {
       setError(e?.message ?? String(e));
