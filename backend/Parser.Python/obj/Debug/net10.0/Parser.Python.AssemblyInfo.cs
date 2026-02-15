@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Parser.Python")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+288608c00b99c4301827fd4a45e7dfd5ee2363a8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72615f32a813e60ae7913995b0c499c2b20605a5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Parser.Python")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Parser.Python")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
