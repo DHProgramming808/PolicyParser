@@ -8,7 +8,10 @@ from dataclasses import asdict
 from aiparser.csv_loader import load_concepts_from_csv, CsvSchema
 from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
 from aiparser.retriever.token_retriever import TokenRetriever
+
 from aiparser.llm.mock_inference import MockCodeInferenceModel
+from aiparser.llm.openai_inference import OpenAIInferenceModel
+
 from aiparser.models import AuditTrail, DictionaryAudit
 from aiparser.audit_utils import sha256_text, env_fingerprint, new_run_id, utc_now_iso
 
@@ -27,7 +30,7 @@ def build_pipeline(options: Dict[str, Any] | None = None) -> CodeInferencePipeli
     retriever = TokenRetriever()
     retriever.index(concepts)
 
-    model = MockCodeInferenceModel()
+    model = OpenAIInferenceModel()
 
     top_k = int(options.get("top_k", 50))
     min_score = float(options.get("min_retrieval_score", 0.005))

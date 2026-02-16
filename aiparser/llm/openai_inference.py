@@ -68,6 +68,10 @@ def _candidates_for_prompt(retrieved: List[RetrievedConcept], max_codes: int = 3
         )
 
     items.sort(key = lambda x: x["best_retrieval_score"], reverse = True)
+
+    for r in items:
+        r.pop("best_retrieval_score", None)
+
     return items[:max_codes]
 
 def _best_retrieval_score_by_code(retrieved: List[RetrievedConcept]) -> Dict[str, float]:
@@ -133,7 +137,7 @@ def _build_prompt(input_text: str, candidates: List[Any]) -> str:
         "CANDIDATE CODES AND CONCEPTS:\n"
         f"{json.dumps(candidates, ensure_ascii=False)}\n\n"
         "Return JSON with key 'inferred' (array). Each item must have:\n"
-        "code (string), confidence (number 0..1), score (number), matched_concepts (string[]), justification (string).\n"
+        "code (string), confidence (number 0..1), score (number 0..1), matched_concepts (string[]), justification (string).\n"
     )
 
 
