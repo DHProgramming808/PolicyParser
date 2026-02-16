@@ -18,7 +18,7 @@ from aiparser.audit_utils import sha256_text, env_fingerprint, new_run_id, utc_n
 # (Optional) If you want audit for single-text calls later, you can re-add it.
 # For now, keep it minimal.
 
-def build_pipeline(options: Dict[str, Any] | None = None) -> CodeInferencePipeline:
+def build_pipeline(options: Dict[str, Any] | None = None):
     options = options or {}
 
     concepts_csv = options.get("concepts_csv_path") or "aiparser/data/hcpcs.csv"
@@ -29,16 +29,26 @@ def build_pipeline(options: Dict[str, Any] | None = None) -> CodeInferencePipeli
     retriever = TokenRetriever()
     retriever.index(concepts)
 
-    model = OpenAIInferenceModel()
+    # --- model selection ---
+    inference_model = str(options.get("inference_model", "mock")).strip().lower()
+
+    if inference_model in ("openai", "oai"):
+        model = OpenAIInferenceModel(
+            api_key=options.get("openai_api_key"),
+            model=options.get("openai_model") or "gpt-4o",
+            base_url=options.get("openai_base_url") or "https://api.openai.com/v1",
+        )
+    else:
+        model = MockCodeInferenceModel()
 
     top_k = int(options.get("top_k", 50))
     min_score = float(options.get("min_retrieval_score", 0.005))
 
     pipeline = CodeInferencePipeline(
-        retriever = retriever,
-        model = model,
-        config = PipelineConfig(top_k = top_k, min_retrieval_score = min_score),
-        model_info = {"name": type(model).__name__, "version": "0.2"}
+        retriever=retriever,
+        model=model,
+        config=PipelineConfig(top_k=top_k, min_retrieval_score=min_score),
+        model_info={"name": type(model).__name__, "version": "0.2"},
     )
     return pipeline, len(concepts)
 
@@ -53,6 +63,13 @@ def drop_key_recursive(obj, key_to_drop: str):
     if isinstance(obj, list):
         return [drop_key_recursive(x, key_to_drop) for x in obj]
     return obj
+
+def redact_options_for_audit(options: Dict[str, Any]) -> Dict[str, Any]:
+    # Shallow copy is enough for your current shape
+    redacted = dict(options or {})
+    if "openai_api_key" in redacted:
+        redacted["openai_api_key"] = "***redacted***"
+    return redacted
 
 
 def main() -> int:
@@ -75,10 +92,12 @@ def main() -> int:
             row_count = len_concepts,
             schema={"code_col": CsvSchema().code_column, "concept_col": CsvSchema().concept_column},
         )
+
+        audit_options = redact_options_for_audit(options)
         audit = AuditTrail(
             run_id=new_run_id(),
             timestamp_utc=utc_now_iso(),
-            input_hash=sha256_text(json.dumps(options, sort_keys = True)),
+            input_hash=sha256_text(json.dumps(audit_options, sort_keys = True)),
             environment=env_fingerprint(),
             dictionary=dictionary_audit,
             retrieval=None,
@@ -89,6 +108,7 @@ def main() -> int:
         dict_out = asdict(raw_out)
 
         filtered = drop_key_recursive(dict_out, "input_text")
+        filtered = drop_key_recursive(filtered, "openai_api_key")
         sys.stdout.write(json.dumps(filtered))
         return 0
     except Exception as e:

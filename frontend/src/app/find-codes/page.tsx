@@ -91,7 +91,11 @@ export default function Page() {
   function buildOptions() {
     const opts: any = {...DEFAULT_OPTIONS };
     if (inferenceMode === "mock") {
-      opts.model = "mock";
+      opts.inference_model = "mock";
+      opts.openai_api_key = "";
+      opts.openai_model = "";
+      opts.openai_base_url = "";
+      return opts;
     }
 
     opts.inference_model = "openai";
