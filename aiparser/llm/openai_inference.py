@@ -96,7 +96,6 @@ def _set_schema(custom_schema: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         or "schema" not in custom_schema
         or not isinstance(custom_schema["schema"], dict)
     ):
-        sys.stderr.write("Invalid custom schema provided, falling back to default schema.\n")
         return build_infer_schema()
     
     custom_schema.setdefault("strict", True)

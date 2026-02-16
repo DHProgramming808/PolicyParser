@@ -61,6 +61,9 @@ public sealed class ProcessPythonRunner : IPythonRunner
             throw new InvalidOperationException($"Failed to start python executable '{PythonExe}'. Ensure Python is installed and on PATH.", e);
         }
 
+        //debug
+        System.Console.WriteLine(minimalPayload);
+
         await proc.StandardInput.WriteAsync(minimalPayload.AsMemory(), ct);
         await proc.StandardInput.FlushAsync(ct);
         proc.StandardInput.Close();
