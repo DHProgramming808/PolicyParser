@@ -13,6 +13,7 @@ from aiparser.models import AuditTrail, DictionaryAudit, InferenceResult, Inferr
 
 from aiparser.retriever.token_retriever import TokenRetriever
 from aiparser.llm.mock_inference import MockCodeInferenceModel
+from aiparser.llm.openai_inference import OpenAIInferenceModel
 
 from aiparser.audit_utils import env_fingerprint, new_run_id, utc_now_iso
 
@@ -34,12 +35,12 @@ def main(input: str, output: str):
     retriever.index(concepts)
     sys.stderr.write("[test] Retriever indexed concepts.")
 
-    model = MockCodeInferenceModel() # modular inference model that can later be swapped out for an actual LLM-based inference model
+    model = OpenAIInferenceModel() # MockCodeInferenceModel() # modular inference model that can later be swapped out for an actual LLM-based inference model
     pipeline = CodeInferencePipeline(
         retriever = retriever,
         model = model,
         config = PipelineConfig(top_k=50, min_retrieval_score=0.005),
-        model_info = {"name": "MockCodeInferenceModel", "version": "1.0"}
+        model_info = {"name": "OpenAIInferenceModel", "version": "1.0"}
     )
 
     #setup Audit Trail

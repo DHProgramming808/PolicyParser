@@ -8,6 +8,7 @@ from dataclasses import asdict
 from aiparser.csv_loader import load_concepts_from_csv, CsvSchema
 from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
 from aiparser.retriever.token_retriever import TokenRetriever
+
 from aiparser.llm.mock_inference import MockCodeInferenceModel
 from aiparser.llm.openai_inference import OpenAIInferenceModel
 from aiparser.models import AuditTrail, DictionaryAudit
