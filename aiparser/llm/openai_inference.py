@@ -5,7 +5,7 @@ import os
 import sys
 from typing import Any, Dict, List, Optional
 
-from openai import OpenAI, api_key, api_key
+from openai import OpenAI
 
 from .base import CodeInferenceModel
 from ..models import RetrievedConcept, InferredCode
@@ -45,7 +45,6 @@ def build_infer_schema(name: str = "inferred_codes_response") -> Dict[str, Any]:
         },
     }
 
-
 def _candidates_for_prompt(retrieved: List[RetrievedConcept], max_codes: int = 30, max_per_code: int = 3):
     """
     Convert RetrievedConcept list into compact candidates to keep prompt size bounded.
@@ -71,6 +70,14 @@ def _candidates_for_prompt(retrieved: List[RetrievedConcept], max_codes: int = 3
     items.sort(key = lambda x: x["best_retrieval_score"], reverse = True)
     return items[:max_codes]
 
+def _best_retrieval_score_by_code(retrieved: List[RetrievedConcept]) -> Dict[str, float]:
+    best: Dict[str, float] = {}
+    for rc in retrieved:
+        code = rc.concept.code
+        s = float(rc.score)
+        if code not in best or s > best[code]:
+            best[code] = s
+    return best
 
 def _set_prompt(custom_prompt: str) -> str:
     if (custom_prompt is None or custom_prompt.strip() == ""):
@@ -78,56 +85,55 @@ def _set_prompt(custom_prompt: str) -> str:
     return custom_prompt.strip()
 
 def _set_schema(custom_schema: Optional[Dict[str, Any]]) -> Dict[str, Any]:
-    if (custom_schema is None
-        or custom_schema.get("name")
+    if (
+        custom_schema is None
+        or not isinstance(custom_schema, dict)
+        or not custom_schema.get("name")
         or "schema" not in custom_schema
         or not isinstance(custom_schema["schema"], dict)
-        or "strict" not in custom_schema):
+    ):
         sys.stderr.write("Invalid custom schema provided, falling back to default schema.\n")
         return build_infer_schema()
     
+    custom_schema.setdefault("strict", True)
     return custom_schema
 
 def _set_api_key(api_key: Optional[str]) -> Optional[str]:
     if api_key is not None and api_key.strip() != "":
         return api_key.strip()
+    env_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if env_key:
+        return env_key
+    return None
     
 def _set_base_url(base_url: Optional[str]) -> Optional[str]:
     if base_url is not None and base_url.strip() != "":
         return base_url.strip()
-    return None
+    env_url = os.getenv("OPENAI_BASE_URL", "").strip()
+    if env_url: 
+        return env_url.strip()
+    return None  # will use OpenAI default
 
 def _set_model(model: Optional[str]) -> str:
     if model is not None and model.strip() != "":
         return model.strip()
     return "gpt-4o"  # default model
 
-def _set_client(api_key: str, base_url: str) -> OpenAI:
-    try:
-        return OpenAI(api_key=api_key, base_url=base_url)
-    except Exception as e:
-        sys.stderr.write(f"Error initializing OpenAI client: {e}\nDefaulting to environment variables.\n")
-        
-    # get from environment as fallback
-    env_api_key = os.getenv("OPENAI_API_KEY")
-    env_base_url = os.getenv("OPENAI_BASE_URL")
-    if not env_api_key:
-        raise RuntimeError("OPENAI_API_KEY is not set in environment variables.") 
-    return OpenAI(api_key=env_api_key, base_url=env_base_url)
+def _set_client(api_key: Optional[str], base_url: Optional[str]) -> OpenAI:
+    key = (api_key or os.getenv("OPENAI_API_KEY") or "").strip()
+    if not key:
+        raise RuntimeError("OPENAI_API_KEY is not set.")
+    url = (base_url or os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1").strip()
+    return OpenAI(api_key=key, base_url=url)
 
-def _build_prompt(input_text: str, candidates: List[Any], schema: Dict[str, Any]) -> str:
+def _build_prompt(input_text: str, candidates: List[Any]) -> str:
     return (
         "POLICY TEXT:\n"
         f"{input_text}\n\n"
         "CANDIDATE CODES AND CONCEPTS:\n"
         f"{json.dumps(candidates, ensure_ascii=False)}\n\n"
-        "Return JSON with this exact shape:\n"
-        f"{json.dumps(schema, ensure_ascii=False)}\n\n"        
-        "- code: the inferred code\n"
-        "- confidence: a number between 0 and 1 indicating confidence\n"
-        "- score: a numeric score (can be same as confidence or different)\n"
-        "- matched_concepts: list of concept strings that supported this inference\n"
-        "- justification: a string explanation of why this code was inferred based on the input and candidates\n"
+        "Return JSON with key 'inferred' (array). Each item must have:\n"
+        "code (string), confidence (number 0..1), score (number), matched_concepts (string[]), justification (string).\n"
     )
 
 
@@ -143,26 +149,29 @@ class OpenAIInferenceModel(CodeInferenceModel):
         custom_schema: Optional[Dict[str, Any]] = None,
     ) -> None:
         self._model = _set_model(model)
-        self._client = _set_client(api_key, base_url)
         self._prompt = _set_prompt(custom_prompt)
         self._schema = _set_schema(custom_schema)
-        self._api_key = api_key
-        self._base_url = base_url
+        self._api_key = _set_api_key(api_key)
+        self._base_url = _set_base_url(base_url)
         self._timeout_s = timeout_s
 
 
     def infer_codes(self, input_text: str, retrieved_concepts: List[RetrievedConcept]) -> List[InferredCode]:
+        self._client = _set_client(self._api_key, self._base_url)
+        
         candidates = _candidates_for_prompt(
             retrieved_concepts,
             max_codes=30,
             max_per_code=3,
         )
+        best_retrieved_scores = _best_retrieval_score_by_code(retrieved_concepts)
 
-        use_case_prompt = _build_prompt(input_text, candidates, self.schema)
+        use_case_prompt = _build_prompt(input_text, candidates)
 
         response = self._client.chat.completions.create(
             model = self._model,
             temperature = 0.0,
+            response_format = {"type": "json_schema", "json_schema": self._schema},
             messages = [
                 {"role": "system", "content": self._prompt},
                 {"role": "user", "content": use_case_prompt},
@@ -183,7 +192,7 @@ class OpenAIInferenceModel(CodeInferenceModel):
                 continue
 
             confidence = float(item.get("confidence", 0.0))
-            score = float(item.get("score", retrieved_concepts["code"].score if retrieved_concepts else 0.0))
+            score = float(item.get("score", best_retrieved_scores.get(code, 0.0)))
             matched_concepts = list(item.get("matched_concepts", []) or [])
             justification = str(item.get("justification", "")).strip()
 
