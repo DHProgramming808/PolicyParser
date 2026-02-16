@@ -108,7 +108,7 @@ export default function Page() {
   // TEXT
   const [textId, setTextId] = useState("1");
   const [textName, setTextName] = useState("Test");
-  const [textBody, setTextBody] = useState("Some policy text...");
+  const [textBody, setTextBody] = useState("Some text...");
   const [textLoading, setTextLoading] = useState(false);
 
   // BATCH JSON
