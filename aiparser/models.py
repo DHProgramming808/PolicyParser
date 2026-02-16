@@ -28,6 +28,7 @@ class Concept:
 class RetrievedConcept:
     concept: Concept
     score: float
+    code: Optional[str] = None
 
 @dataclass
 class InferredCode:

@@ -539,11 +539,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "N:\\Github\\PolicyParser\\backend\\Parser.Api\\Parser.Api.csproj",
+      "projectUniqueName": "N:\\github\\policyparser\\backend\\Parser.Api\\Parser.Api.csproj",
       "projectName": "Parser.Api",
-      "projectPath": "N:\\Github\\PolicyParser\\backend\\Parser.Api\\Parser.Api.csproj",
+      "projectPath": "N:\\github\\policyparser\\backend\\Parser.Api\\Parser.Api.csproj",
       "packagesPath": "C:\\Users\\NSR\\.nuget\\packages\\",
-      "outputPath": "N:\\Github\\PolicyParser\\backend\\Parser.Api\\obj\\",
+      "outputPath": "N:\\github\\policyparser\\backend\\Parser.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -564,11 +564,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "N:\\Github\\PolicyParser\\backend\\Parser.Application\\Parser.Application.csproj": {
-              "projectPath": "N:\\Github\\PolicyParser\\backend\\Parser.Application\\Parser.Application.csproj"
+            "N:\\github\\policyparser\\backend\\Parser.Application\\Parser.Application.csproj": {
+              "projectPath": "N:\\github\\policyparser\\backend\\Parser.Application\\Parser.Application.csproj"
             },
-            "N:\\Github\\PolicyParser\\backend\\Parser.Python\\Parser.Python.csproj": {
-              "projectPath": "N:\\Github\\PolicyParser\\backend\\Parser.Python\\Parser.Python.csproj"
+            "N:\\github\\policyparser\\backend\\Parser.Python\\Parser.Python.csproj": {
+              "projectPath": "N:\\github\\policyparser\\backend\\Parser.Python\\Parser.Python.csproj"
             }
           }
         }
