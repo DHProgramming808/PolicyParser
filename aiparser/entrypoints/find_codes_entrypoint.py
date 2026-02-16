@@ -11,7 +11,6 @@ from aiparser.retriever.token_retriever import TokenRetriever
 
 from aiparser.llm.mock_inference import MockCodeInferenceModel
 from aiparser.llm.openai_inference import OpenAIInferenceModel
-
 from aiparser.models import AuditTrail, DictionaryAudit
 from aiparser.audit_utils import sha256_text, env_fingerprint, new_run_id, utc_now_iso
 

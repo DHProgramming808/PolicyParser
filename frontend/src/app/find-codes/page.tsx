@@ -185,9 +185,9 @@ export default function Page() {
       const rows = parsed.data ?? [];
       const items = rows
         .map((r, idx) => ({
-          id: (r["id"] ?? `${idx + 1}`).toString(),
-          name: (r["name"] ?? "").toString(),
-          text: (r["text"] ?? "").toString(),
+          id: (r["id"] ?? r["policy_id"] ?? `${idx + 1}`).toString(),
+          name: (r["name"] ?? r["policy_name"] ?? "").toString(),
+          text: (r["text"] ?? r["cleaned_policy_text"] ?? "").toString(),
         }))
         .filter((x) => x.text.trim().length > 0);
 
