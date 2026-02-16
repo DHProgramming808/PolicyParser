@@ -2,8 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
+import build from "next/dist/build";
 
 type UseCaseKey = "text" | "batchJson" | "csv";
+type InferenceMode = "mock" | "openai";
 
 const DEFAULT_OPTIONS = { top_k: 50, min_retrieval_score: 0.005 };
 
@@ -13,9 +15,7 @@ const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(/\/+$/, ""
 
 // All backend endpoints are rooted at /api/...
 function apiUrl(path: string) {
-  // Ensure we always have a leading slash
   const p = path.startsWith("/") ? path : `/${path}`;
-  // In prod API_BASE == "" so this becomes "/api/..."
   return `${API_BASE}${p}`;
 }
 
@@ -82,6 +82,25 @@ export default function Page() {
   const [healthOk, setHealthOk] = useState(false);
   const [healthLabel, setHealthLabel] = useState("Checking...");
 
+  // Inference mode
+  const [inferenceMode, setInferenceMode] = useState<InferenceMode>("mock");
+  const [openAiKey, setOpenAiKey] = useState("");
+  const [openAiModel, setOpenAiModel] = useState("gpt-4o");
+  const [openAiBaseUrl, setOpenAiBaseUrl] = useState("https://api.openai.com/v1");
+
+  function buildOptions() {
+    const opts: any = {...DEFAULT_OPTIONS };
+    if (inferenceMode === "mock") {
+      opts.model = "mock";
+    }
+
+    opts.inference_model = "openai";
+    opts.openai_api_key = openAiKey;
+    opts.openai_model = openAiModel || "gpt-4o";
+    opts.openai_base_url = openAiBaseUrl || "https://api.openai.com/v1";
+    return opts;
+  }
+
   // TEXT
   const [textId, setTextId] = useState("1");
   const [textName, setTextName] = useState("Test");
@@ -93,8 +112,8 @@ export default function Page() {
     JSON.stringify(
       {
         items: [
-          { id: "1", name: "Policy A", text: "Some policy text for A..." },
-          { id: "2", name: "Policy B", text: "Some policy text for B..." },
+          { id: "1", name: "Text A", text: "Some text for A..." },
+          { id: "2", name: "Text B", text: "Some text for B..." },
         ],
         options: DEFAULT_OPTIONS,
       },
@@ -144,7 +163,7 @@ export default function Page() {
     setResult(null);
     setTextLoading(true);
     try {
-      const body = { id: textId, name: textName, text: textBody, options: DEFAULT_OPTIONS };
+      const body = { id: textId, name: textName, text: textBody, options: buildOptions() };
       const data = await postJson("/api/v1/use-cases/json/find-codes", body);
       setResult(data);
     } catch (e: any) {
@@ -160,6 +179,9 @@ export default function Page() {
     setBatchLoading(true);
     try {
       const parsed = JSON.parse(batchJson);
+
+      parsed.options = buildOptions();
+
       const data = await postJson("/api/v1/use-cases/json/find-codes-batch-json", parsed);
       setResult(data);
     } catch (e: any) {
@@ -209,6 +231,8 @@ export default function Page() {
     } catch {}
   }
 
+  const showOpenAiFields = inferenceMode === "openai";
+
   return (
     <div style={{ display: "grid", gap: 20 }}>
       {/* Use cases */}
@@ -222,6 +246,65 @@ export default function Page() {
         </div>
 
         <div className="pb-panel-body" style={{ display: "grid", gap: 14 }}>
+          <div style={{ display: "grid", gap: 12 }}>
+            <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+              <div>
+                <div className="pb-label">Inference Engine</div>
+                <select
+                  className="pb-select"
+                  value={inferenceMode}
+                  onChange={(e) => setInferenceMode(e.target.value as InferenceMode)}
+                >
+                  <option value="mock">Jaccard matching / Mock Inference</option>
+                  <option value="openai">OpenAI</option>
+                </select>
+              </div>
+
+              {showOpenAiFields ? (
+                <div>
+                  <div className="pb-label">OpenAI Model</div>
+                  <input
+                    className="pb-input"
+                    value={openAiModel}
+                    onChange={(e) => setOpenAiModel(e.target.value)}
+                    placeholder="gpt-4o"
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            {showOpenAiFields ? (
+              <div style={{ display: "grid", gap: 14 }}>
+                <div>
+                  <div className="pb-label">OpenAI API Key</div>
+                  <input
+                    className="pb-input"
+                    type="password"
+                    value={openAiKey}
+                    onChange={(e) => setOpenAiKey(e.target.value)}
+                    placeholder="sk-..."
+                    autoComplete="off"
+                  />
+                  <div className="pb-muted" style={{ marginTop: 6 }}>
+                    Sent with the request (not stored). Use a key you can rotate.
+                  </div>
+                </div>
+
+                <div>
+                  <div className="pb-label">OpenAI Base URL</div>
+                  <input
+                    className="pb-input"
+                    value={openAiBaseUrl}
+                    onChange={(e) => setOpenAiBaseUrl(e.target.value)}
+                    placeholder="https://api.openai.com/v1"
+                    autoComplete="off"
+                  />
+                </div>
+              </div>
+            ) : null}
+          </div>          
+
+
           <AccordionSection
             open={open === "text"}
             onToggle={() => setOpen("text")}
