@@ -7,7 +7,9 @@ from dataclasses import asdict
 
 from aiparser.csv_loader import load_concepts_from_csv, CsvSchema
 from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
+
 from aiparser.retriever.token_retriever import TokenRetriever
+from aiparser.retriever.openai_embeddint_retriever import OpenAIEmbeddingRetriever
 
 from aiparser.llm.mock_inference import MockCodeInferenceModel
 from aiparser.llm.openai_inference import OpenAIInferenceModel
@@ -26,17 +28,28 @@ def build_pipeline(options: Dict[str, Any] | None = None):
 
     concepts = load_concepts_from_csv(concepts_csv_path, CsvSchema())
 
-    retriever = TokenRetriever()
+    inference_model = str(options.get("inference_model", "mock")).strip().lower()
+
+    # --- retriever/RAG selection ---
+    if inference_model in ("openai", "oai"):
+        retriever = OpenAIEmbeddingRetriever(
+            api_key = options.get("openai_api_key"),
+            base_url = options.get("openai_base_url") or "https://api.openai.com/v1",
+            embedding_model = options.get("openai_embedding_model") or "text-embedding-3-small",
+            batch_size = int(options.get("embedding_batch_size", 32)),
+        )
+    else:
+        retriever = TokenRetriever()
+
     retriever.index(concepts)
 
     # --- model selection ---
-    inference_model = str(options.get("inference_model", "mock")).strip().lower()
 
     if inference_model in ("openai", "oai"):
         model = OpenAIInferenceModel(
-            api_key=options.get("openai_api_key"),
-            model=options.get("openai_model") or "gpt-4o",
-            base_url=options.get("openai_base_url") or "https://api.openai.com/v1",
+            api_key = options.get("openai_api_key"),
+            model = options.get("openai_model") or "gpt-4o",
+            base_url = options.get("openai_base_url") or "https://api.openai.com/v1",
         )
     else:
         model = MockCodeInferenceModel()
@@ -45,10 +58,10 @@ def build_pipeline(options: Dict[str, Any] | None = None):
     min_score = float(options.get("min_retrieval_score", 0.005))
 
     pipeline = CodeInferencePipeline(
-        retriever=retriever,
-        model=model,
-        config=PipelineConfig(top_k=top_k, min_retrieval_score=min_score),
-        model_info={"name": type(model).__name__, "version": "0.2"},
+        retriever = retriever,
+        model = model,
+        config = PipelineConfig(top_k=top_k, min_retrieval_score=min_score),
+        model_info = {"name": type(model).__name__, "version": "0.2"},
     )
     return pipeline, len(concepts)
 
@@ -95,13 +108,13 @@ def main() -> int:
 
         audit_options = redact_options_for_audit(options)
         audit = AuditTrail(
-            run_id=new_run_id(),
-            timestamp_utc=utc_now_iso(),
-            input_hash=sha256_text(json.dumps(audit_options, sort_keys = True)),
-            environment=env_fingerprint(),
-            dictionary=dictionary_audit,
-            retrieval=None,
-            model=None
+            run_id = new_run_id(),
+            timestamp_utc = utc_now_iso(),
+            input_hash = sha256_text(json.dumps(audit_options, sort_keys = True)),
+            environment = env_fingerprint(),
+            dictionary = dictionary_audit,
+            retrieval = None,
+            model = None
         )
 
         raw_out = pipeline.run(text, audit_trail = audit)
