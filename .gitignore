@@ -179,3 +179,38 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+*.cache
+*.editorconfig
+*.cache
+backend/Parser.Api/obj/Debug/net10.0/Parser.Api.assets.cache
+backend/Parser.Api/obj/Debug/net10.0/Parser.Api.GeneratedMSBuildEditorConfig.editorconfig
+backend/Parser.Application/obj/Debug/net10.0/Parser.Application.AssemblyInfoInputs.cache
+backend/Parser.Application/obj/Debug/net10.0/Parser.Application.assets.cache
+backend/Parser.Application/obj/Debug/net10.0/Parser.Application.GeneratedMSBuildEditorConfig.editorconfig
+backend/Parser.Python/obj/Debug/net10.0/Parser.Python.AssemblyInfoInputs.cache
+backend/Parser.Python/obj/Debug/net10.0/Parser.Python.assets.cache
+backend/Parser.Python/obj/Debug/net10.0/Parser.Python.GeneratedMSBuildEditorConfig.editorconfig
+backend/Parser.Api/obj/Debug/net10.0/Parser.Api.AssemblyInfoInputs.cache
+/backend/Parser.Python/obj
+
+
+# .NET build output
+**/bin/
+**/obj/
+*.dll
+*.pdb
+*.exe
+
+# Rider/VS/VSCode
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env

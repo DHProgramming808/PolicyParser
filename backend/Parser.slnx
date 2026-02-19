@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Parser.Api/Parser.Api.csproj" />
+  <Project Path="Parser.Application/Parser.Application.csproj" />
+  <Project Path="Parser.Python/Parser.Python.csproj" />
+</Solution>
