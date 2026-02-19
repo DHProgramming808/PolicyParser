@@ -26,11 +26,13 @@ def build_pipeline(options: Dict[str, Any] | None = None):
 
     concepts = load_concepts_from_csv(concepts_csv_path, CsvSchema())
 
+    inference_model = str(options.get("inference_model", "mock")).strip().lower()
+
+    # --- retriever/RAG selection ---
     retriever = TokenRetriever()
     retriever.index(concepts)
 
     # --- model selection ---
-    inference_model = str(options.get("inference_model", "mock")).strip().lower()
 
     if inference_model in ("openai", "oai"):
         model = OpenAIInferenceModel(
