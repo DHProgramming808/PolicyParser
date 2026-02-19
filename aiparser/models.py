@@ -63,7 +63,8 @@ class RetrievalCandidateAudit:
 
 @dataclass
 class RetrievalAudit:
-    retriever_name: str
+    module_name: str
+    retriever_name: Optional[str] = None
     retreiver_version: str
     top_k: int
     min_retrieval_score: float
@@ -72,7 +73,8 @@ class RetrievalAudit:
 
 @dataclass
 class ModelAudit:
-    model_name: str
+    module_name: str
+    model_name: Optional[str] = None
     model_version: str
     params: Optional[Dict[str, Any]] = None
 
