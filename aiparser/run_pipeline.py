@@ -12,6 +12,7 @@ from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
 from aiparser.models import AuditTrail, DictionaryAudit, InferenceResult, InferredCode, Concept, Input, Output
 
 from aiparser.retriever.token_retriever import TokenRetriever
+from aiparser.retriever.openai_embeddint_retriever import OpenAIEmbeddingRetriever
 from aiparser.llm.mock_inference import MockCodeInferenceModel
 from aiparser.llm.openai_inference import OpenAIInferenceModel
 
@@ -31,11 +32,11 @@ def main(input: str, output: str):
     sys.stderr.write(f"Loaded {len(inputs)} input items from {input_path}.")
 
     #initialize pipeline components
-    retriever = TokenRetriever() # modular retriever that can later be swapped out for an embedding RAG retriever
+    retriever = TokenRetriever() # OpenAIEmbeddingRetriever() # modular retriever that can later be swapped out for an embedding RAG retriever
     retriever.index(concepts)
     sys.stderr.write("[test] Retriever indexed concepts.")
 
-    model = OpenAIInferenceModel() # MockCodeInferenceModel() # modular inference model that can later be swapped out for an actual LLM-based inference model
+    model =  MockCodeInferenceModel() #  OpenAIInferenceModel() # modular inference model that can later be swapped out for an actual LLM-based inference model
     pipeline = CodeInferencePipeline(
         retriever = retriever,
         model = model,
@@ -63,8 +64,8 @@ def main(input: str, output: str):
             model=None
         )
 
-        raw_out = pipeline.run(input.text, audit_trail=audit)
-        out = raw_out.to_json_dict()
+        raw_out = pipeline.run(input.text, audit_trail = audit)
+        out = asdict(raw_out)
 
         inferred_codes = out.get("inferred_codes", [])
         audit_trail = out.get("audit", None)
