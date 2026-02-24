@@ -13,22 +13,39 @@ A lightweight RAG-based inference engine that maps input policy text to code-con
 
 PolicyParser/
 │
+
 ├── aiparser/
+
 │ ├── run_pipeline.py # CLI entrypoint
+
 │ ├── pipeline.py # Core orchestration
+
 │ ├── csv_loader.py # Concept dictionary loader
+
 │ ├── input_csv_loader.py # Input document loader
+
 │ ├── retriever/
+
 │ │ └── token_retriever.py
+
 │ ├── llm/
+
 │ │ └── mock_inference.py
+
 │ ├── models.py
+
 │ └── audit_utils.py
+
 │
+
 ├── data/
+
 │ ├── hcpcs.csv # Code-concept dictionary
+
 │ └── policies_cleaned.csv # Input documents
+
 │
+
 └── outputs.json # Generated output (example)
 
 ---
