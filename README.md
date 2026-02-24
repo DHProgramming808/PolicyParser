@@ -107,7 +107,56 @@ output json schema is:
 ]
 
 
-## Architecture Overview
+## Design Considerations
+
+Design Key Points:
+-Clarity of data schemes:
+	Use of models.py to explicitly set input/output contracts, as well as to standardize internal data models for modularity
+	Use of base classes to explicitly set method signatures for modularity
+	When hitting openai api, use of infer schema for robust responses from LLMs
+
+
+-Handling uncertainty:
+	Use of confidence and scores as a metric of uncertain codes.
+	Currently uncertainty is recorded but not handled, but with the way data is structured, it would be simple to implement
+	Future plans to chunk input text instead of a single ingestion event would help narrow down uncertainty and keep context windows small for better clarity
+
+
+-System designs and tradeoffs:
+	Modular structure slows down MVP development
+	Redundant inference schema checks introduce latency and development costs
+	Non-agentic system allows for faster inference and development, but introduces potential misses in parsing.
+	C# API wrapper allows for use-case factory pattern for expandability, but introduces a weaklink between python code and api + lack of persistence of data memory for faster inference
+	Current batch-inference re-runs through whole pipeline and does not use memory persistence.
+
+
+-Code Organization and readability:
+	Modular structure allows for readability. 
+	Orechestration module - pipeline.py - sets up configs, inits relevant modules, sets up audit trail
+	API MVC layer cleanly separates backend API layer from inference layer
+
+
+-Maintainability and data quality:
+	Modular structure allows for natural growth and maintainability. 
+	Base class does introduce OOP-like parent-child maintenance overhead, but for vertical modularity, the tradeoff is acceptable.
+	Audit trail records specific inference settings, for reproducibility and diagnose issues with specific modules.
+	API factory pattern allows for a single controller to be able to handle different use-cases
+
+
+Future improvements:
+
+-Chunking input strings
+-Add reference csv input
+-Add batch input UX
+-Format output
+-Add more usecases
+-Add explicit code parsing (regex)
+-Cleanup audit objects (add temperature and seed)
+-Enable data caching and memory persistence in the python layer
+
+
+
+## Inference Module Architecture Overview
 
 1. Retrieval Layer
 
