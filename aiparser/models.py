@@ -97,3 +97,16 @@ class AuditTrail:
     retrieval: Optional[RetrievalAudit] = None
     model: Optional[ModelAudit] = None
     environment: Dict[str, Any] = None
+
+
+@dataclass
+class InferenceRealCrossReference:
+    correct_codes: List[InferredCode]
+    wrong_codes: List[InferredCode]
+    missed_codes: List[Concept]
+    metadata: Dict [str, int] = {
+        "num_correct": len(correct_codes),
+        "num_wrong": len(wrong_codes),
+        "num_missed": len(missed_codes)
+    }
+
