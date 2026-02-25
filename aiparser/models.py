@@ -110,3 +110,34 @@ class InferenceRealCrossReference:
         "num_missed": len(missed_codes)
     }
 
+
+@dataclass
+class RetreivalRealCrossReference:
+    correct_codes: List[RetrievedConcept]
+    wrong_codes: List[RetrievedConcept]
+    missed_codes: List[Concept]
+    metadata: Dict [str, int] = {
+        "num_correct": len(correct_codes),
+        "num_wrong": len(wrong_codes),
+        "num_missed": len(missed_codes)
+    }
+
+
+@dataclass
+class RetrievalInferenceCrossCheck:
+    missed_inference_codes: List[RetrievedConcept]
+    excluded_wrong_inference_codes: List [RetrievedConcept]
+    metadata: Dict [str, int] = {
+        "num_missed_inference": len(missed_inference_codes),
+        "num_excluded_inference": len(excluded_wrong_inference_codes)
+    }
+
+
+@dataclass
+class InferenceAccuracyEvaluation:
+    pct_correct: float
+    pct_false_pos: float
+    pct_false_neg: float
+    false_pos_reasons: List[str]
+    false_neg_reasons: List[str]
+    notes: List[str]
