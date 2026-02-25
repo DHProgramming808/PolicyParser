@@ -141,3 +141,19 @@ class InferenceAccuracyEvaluation:
     false_pos_reasons: List[str]
     false_neg_reasons: List[str]
     notes: List[str]
+
+
+@dataclass
+class CorrectPolicyCodes:
+    policy_id: str
+    policy_uuid: str
+    codes = List[Concept]
+
+
+@dataclass
+class ValidationAuditTrail:
+    run_id: str
+    timestamp_utc: str
+    input_hash: str
+    model: Optional[ModelAudit] = None
+    environment: Dict[str, Any] = None

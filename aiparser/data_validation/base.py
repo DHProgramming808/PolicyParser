@@ -4,7 +4,7 @@ from typing import List, Dict
 from ..models import InferredCode, InferenceRealCrossReference, Concept, RetrievedConcept, RetreivalRealCrossReference, RetrievalInferenceCrossCheck, InferenceAccuracyEvaluation
 
 
-class DataValidationModel(ABC):
+class DataEvaluationModel(ABC):
     @abstractmethod
     #This method will provide the evaluation of the accuracy of inferred codes and attempt to reason why
     # Algorithmic -> will look at Correct, Missed, Wrong codes to determine which step is most likely to fail, then send back pre-determined reasonings from dev
