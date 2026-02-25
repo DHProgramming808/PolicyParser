@@ -221,3 +221,26 @@ Modular architecture
 Clear separation of retrieval and inference
 Deterministic audit trail
 Reproducibility as a first-class feature
+
+
+## Next Steps
+
+    create new validation_pipeline.py
+    
+    validation_pipeline:
+        initialize validation object (whether its algorithmic or AI)
+        
+        pull and format correct policy codes for validation inputs
+        
+        pull and format inference output data for validation inputs
+        
+        run cross_check_result_utils.py for metavalidation objects
+        
+        run metavalidation objects in validation object
+        
+        format output
+        
+        return output
+        
+    
+    [optional] create API validation pathway
