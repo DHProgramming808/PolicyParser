@@ -167,6 +167,13 @@ output json schema is:
 	Audit trail records specific inference settings, for reproducibility and diagnose issues with specific modules.
 	
 	API factory pattern allows for a single controller to be able to handle different use-cases
+
+
+-CURRENT WIP
+
+	Inference error evaluation
+
+	identify which inference return correct matches, when they return incorrect matches, and when they miss correct codes
 	
 
 
