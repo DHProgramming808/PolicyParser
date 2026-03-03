@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List, Dict
-from ..models import InferredCode, InferenceRealCrossReference, Concept, RetrievedConcept, RetreivalRealCrossReference, RetrievalInferenceCrossCheck
+from ..models import InferredCode, InferenceRealCrossReference, Concept, RetrievedConcept, RetrievalRealCrossReference, RetrievalInferenceCrossCheck
 
 
 def cross_reference_inference(inferred_codes: List[InferredCode], real_codes: List[Concept]) -> InferenceRealCrossReference:
@@ -21,7 +21,7 @@ def cross_reference_inference(inferred_codes: List[InferredCode], real_codes: Li
 
 
 
-def cross_reference_retrieval(retrieved_codes: List[RetrievedConcept], real_codes: List[Concept]) -> RetreivalRealCrossReference:
+def cross_reference_retrieval(retrieved_codes: List[RetrievedConcept], real_codes: List[Concept]) -> RetrievalRealCrossReference:
     codes_retrieved = {retrieved_code.code for retrieved_code in retrieved_codes}
     codes_real = {real_code.code for real_code in real_codes}
 
@@ -29,7 +29,7 @@ def cross_reference_retrieval(retrieved_codes: List[RetrievedConcept], real_code
     wrong_codes = [retrieved_code for retrieved_code in retrieved_codes if retrieved_code.code not in codes_real]
     missed_codes = [real_code for real_code in real_codes if real_code.code not in codes_retrieved]
 
-    retrieved_real_cross_reference = RetreivalRealCrossReference(
+    retrieved_real_cross_reference = RetrievalRealCrossReference(
         correct_codes = correct_codes,
         wrong_codes = wrong_codes,
         missed_codes = missed_codes
