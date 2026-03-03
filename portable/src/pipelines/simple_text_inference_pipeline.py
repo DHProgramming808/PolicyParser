@@ -28,14 +28,20 @@ class SimpleTextCodeInferencePipeline:
         self._model_info = model_info or {}
 
     def run(self, input_text: str, audit_trail: AuditTrail = None) -> InferenceResult:
-        retrieved_raw = self._retriever.retrieve(input_text, top_k=self._config.top_k)
-        retrieved = [r for r in retrieved_raw if r.score >= self._config.min_retrieval_score]
+        self._audit_trail = audit_trail
+
+        retrieved_raw = self._retriever.retrieve(input_text, top_k=self._top_k)
+        retrieved = [r for r in retrieved_raw if r.score >= self._min_retrieval_score]
+
+        #print(input_text)
+        #print(retrieved)
+        #sys.stdout.write("\n")
 
         retrieval_audit = RetrievalAudit(
             retriever_name = type(self._retriever).__name__,
             retreiver_version = "1.0", # hardcoded for now, should be dynamic
-            top_k = self._config.top_k,
-            min_retrieval_score = self._config.min_retrieval_score,
+            top_k = self._top_k,
+            min_retrieval_score = self._min_retrieval_score,
             candidates = self._to_candidate_audit(retrieved_raw)
         )
 

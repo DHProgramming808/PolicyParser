@@ -1,165 +1,149 @@
 [
   {
-    "policy_id": "fffed90d-e90e-4454-9e4c-3f462ec2011c",
-    "policy_uuid": "fffed90d-e90e-4454-9e4c-3f462ec2011c",
-    "codes": [
+    "id": "fffed90d-e90e-4454-9e4c-3f462ec2011c",
+    "name": "Fremanezumab-vfrm (Ajovy) HIM.PA.SP66",
+    "inferred_codes": [
       {
-        "code": "J3031",
-        "concept": "J3031",
-        "metadata": null
+        "code": "0519U",
+        "confidence": 0.9,
+        "score": 0.9,
+        "matched_concepts": [
+          "Ther rx mntr meds p/d/a 110+"
+        ],
+        "justification": "The policy discusses the monitoring of medication therapies for migraine prophylaxis, which aligns with the concept of therapeutic monitoring of medications."
+      },
+      {
+        "code": "0518U",
+        "confidence": 0.85,
+        "score": 0.85,
+        "matched_concepts": [
+          "Ther rx mntr 90+ pn&mtl hlth"
+        ],
+        "justification": "The policy outlines criteria for ongoing therapy and monitoring of migraine treatments, which relates to the therapeutic monitoring of health."
+      },
+      {
+        "code": "98967",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Ph1 assmt&mgmt nqhp 11-20"
+        ],
+        "justification": "The policy includes assessment and management criteria for migraine treatment, which can be associated with patient assessment and management."
+      },
+      {
+        "code": "98968",
+        "confidence": 0.65,
+        "score": 0.65,
+        "matched_concepts": [
+          "Ph1 assmt&mgmt nqhp 21-30"
+        ],
+        "justification": "Similar to the previous code, this relates to the assessment and management of patients, particularly in the context of migraine treatment."
       }
-    ]
+    ],
+    "audit": null
   },
   {
-    "policy_id": "fffea6c5-c715-4dc5-9ed8-6bd171fe37a5",
-    "policy_uuid": "fffea6c5-c715-4dc5-9ed8-6bd171fe37a5",
-    "codes": [
+    "id": "fffea6c5-c715-4dc5-9ed8-6bd171fe37a5",
+    "name": "Modifier Usage",
+    "inferred_codes": [
       {
-        "code": "99472",
-        "concept": "99472",
-        "metadata": null
+        "code": "80061",
+        "confidence": 0.9,
+        "score": 0.9,
+        "matched_concepts": [
+          "Lipid panel [only when billed with ICD-10-CM code Z13.6]"
+        ],
+        "justification": "The policy mentions the use of appropriate procedure codes for reimbursement, and the lipid panel is a common procedure that may be relevant for reimbursement under certain conditions."
       },
       {
-        "code": "87389",
-        "concept": "87389",
-        "metadata": null
+        "code": "82465",
+        "confidence": 0.85,
+        "score": 0.85,
+        "matched_concepts": [
+          "Assay bld/serum cholesterol [only when billed with ICD-10-CM code Z13.6]"
+        ],
+        "justification": "Similar to the lipid panel, this assay is relevant for cholesterol testing and aligns with the policy's focus on proper coding for reimbursement."
       },
       {
-        "code": "99468",
-        "concept": "99468",
-        "metadata": null
+        "code": "82947",
+        "confidence": 0.8,
+        "score": 0.8,
+        "matched_concepts": [
+          "Assay glucose blood quant [only when billed with ICD-10-CM code Z13.1]"
+        ],
+        "justification": "The policy emphasizes the importance of using correct codes for reimbursement, and glucose assays are commonly performed tests that may be included."
       },
       {
-        "code": "99471",
-        "concept": "99471",
-        "metadata": null
+        "code": "82950",
+        "confidence": 0.75,
+        "score": 0.75,
+        "matched_concepts": [
+          "Glucose test [only when billed with ICD-10-CM code Z13.1]"
+        ],
+        "justification": "This code is relevant for glucose testing, which is often necessary for patient assessments and aligns with the policy's guidelines."
       },
       {
-        "code": "99476",
-        "concept": "99476",
-        "metadata": null
-      },
-      {
-        "code": "99469",
-        "concept": "99469",
-        "metadata": null
-      },
-      {
-        "code": "99475",
-        "concept": "99475",
-        "metadata": null
-      },
-      {
-        "code": "86703",
-        "concept": "86703",
-        "metadata": null
-      },
-      {
-        "code": "99211",
-        "concept": "99211",
-        "metadata": null
-      },
-      {
-        "code": "86701",
-        "concept": "86701",
-        "metadata": null
-      },
-      {
-        "code": "99291",
-        "concept": "99291",
-        "metadata": null
-      },
-      {
-        "code": "86702",
-        "concept": "86702",
-        "metadata": null
-      },
-      {
-        "code": "99292",
-        "concept": "99292",
-        "metadata": null
+        "code": "G0288",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Recon, cta for surg plan"
+        ],
+        "justification": "The policy discusses the need for proper documentation and coding, and this code relates to surgical planning, which is relevant in the context of reimbursement."
       }
-    ]
+    ],
+    "audit": null
   },
   {
-    "policy_id": "fffdc557-54e1-4204-b6bf-96a619c118d0",
-    "policy_uuid": "fffdc557-54e1-4204-b6bf-96a619c118d0",
-    "codes": [
-      {
-        "code": "81327",
-        "concept": "81327",
-        "metadata": null
-      },
-      {
-        "code": "81479",
-        "concept": "81479",
-        "metadata": null
-      },
+    "id": "fffdc557-54e1-4204-b6bf-96a619c118d0",
+    "name": "Concert Genetic Oncology: Cancer Screening (V1.2025)",
+    "inferred_codes": [
       {
         "code": "81528",
-        "concept": "81528",
-        "metadata": null
+        "confidence": 0.9,
+        "score": 0.9,
+        "matched_concepts": [
+          "Oncology colorectal scr"
+        ],
+        "justification": "The policy discusses colorectal cancer screening tests, and this code is specifically related to oncology colorectal screening."
       },
       {
-        "code": "G0327",
-        "concept": "G0327",
-        "metadata": null
+        "code": "0496U",
+        "confidence": 0.85,
+        "score": 0.85,
+        "matched_concepts": [
+          "Onc clrct cfdna 8/7 genes"
+        ],
+        "justification": "This code pertains to colorectal cancer testing, which aligns with the policy's focus on genetic and biomarker tests for cancer screening."
       },
       {
-        "code": "81599",
-        "concept": "81599",
-        "metadata": null
+        "code": "0499U",
+        "confidence": 0.8,
+        "score": 0.8,
+        "matched_concepts": [
+          "Onc clrct&lng dna ngs 8genes"
+        ],
+        "justification": "This code relates to genetic testing for colorectal and lung cancer, which is relevant to the policy's emphasis on cancer screening."
       },
       {
-        "code": "0002U",
-        "concept": "0002U",
-        "metadata": null
+        "code": "0465U",
+        "confidence": 0.75,
+        "score": 0.75,
+        "matched_concepts": [
+          "Onc urthl carc dna qmsp 2gen"
+        ],
+        "justification": "This code is associated with urinary biomarker tests, which are mentioned in the policy for cancer screening."
       },
       {
-        "code": "0163U",
-        "concept": "0163U",
-        "metadata": null
-      },
-      {
-        "code": "0368U",
-        "concept": "0368U",
-        "metadata": null
-      },
-      {
-        "code": "G0328",
-        "concept": "G0328",
-        "metadata": null
-      },
-      {
-        "code": "Z12.11",
-        "concept": "Z12.11",
-        "metadata": null
-      },
-      {
-        "code": "Z12",
-        "concept": "Z12",
-        "metadata": null
-      },
-      {
-        "code": "Z12.12",
-        "concept": "Z12.12",
-        "metadata": null
-      },
-      {
-        "code": "Z12.10",
-        "concept": "Z12.10",
-        "metadata": null
-      },
-      {
-        "code": "Z12.13",
-        "concept": "Z12.13",
-        "metadata": null
-      },
-      {
-        "code": "Z12.2",
-        "concept": "Z12.2",
-        "metadata": null
+        "code": "71271",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Ct thorax lung cancer scr c-"
+        ],
+        "justification": "This code is relevant to lung cancer screening, which is discussed in the policy as part of the cancer screening tests."
       }
-    ]
+    ],
+    "audit": null
   }
 ]

@@ -23,7 +23,7 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
     #load concepts and input data initialize
     input = "policies_cleaned_mini.csv"
     validation = "policies_cleaned_labels_mini.csv"
-    out = "output.json"
+    out_file = "output.json"
 
     concepts_csv_path = Path("data/hcpcs.csv")
     input_path = Path("data/" + input)
@@ -48,9 +48,8 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
     if env_key:
         oai_key = env_key
 
-    oai_key = ""
 
-    sys.stdout.write(f"Using api key: {oai_key} || {env_key}\n\n")
+    sys.stdout.write(f"Using api key: {oai_key}\n\n")
     
     #set up RAG Model
     retriever: OpenAIEmbeddingRetriever = OpenAIEmbeddingRetriever(
@@ -59,6 +58,7 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
         embedding_model = "text-embedding-3-small",
         batch_size = 32,
     )
+    retriever.index(concepts)
 
     #set up Inference Model
     inference_model: OpenAIInferenceModel = OpenAIInferenceModel(
@@ -95,7 +95,9 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
         raw_out = pipeline.run(input.text, audit_trail = audit)
         out = asdict(raw_out)
 
-        inferred_codes = out.get("inferred_codes", [])
+        print(out)
+
+        inferred_codes = out.get("inferred", [])
         audit_trail = out.get("audit", None)
         assert isinstance(inferred_codes, list), f"Expected 'inferred_codes' to be a list, got {type(inferred_codes)}"
     
@@ -109,9 +111,9 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
 
     #create output
     out_path.mkdir(parents = True, exist_ok = True)
-    mock_payload = [asdict(r) for r in results]
-    with open(out_path / out, "w", encoding = "utf-8") as f:
-        json.dump(mock_payload, f, indent = 2)
+    payload = [asdict(r) for r in results]
+    with open(out_path / out_file, "w", encoding = "utf-8") as f:
+        json.dump(payload, f, indent = 2)
 
 
 if __name__ == "__main__":
