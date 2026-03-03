@@ -1,0 +1,165 @@
+[
+  {
+    "policy_id": "fffed90d-e90e-4454-9e4c-3f462ec2011c",
+    "policy_uuid": "fffed90d-e90e-4454-9e4c-3f462ec2011c",
+    "codes": [
+      {
+        "code": "J3031",
+        "concept": "J3031",
+        "metadata": null
+      }
+    ]
+  },
+  {
+    "policy_id": "fffea6c5-c715-4dc5-9ed8-6bd171fe37a5",
+    "policy_uuid": "fffea6c5-c715-4dc5-9ed8-6bd171fe37a5",
+    "codes": [
+      {
+        "code": "99472",
+        "concept": "99472",
+        "metadata": null
+      },
+      {
+        "code": "87389",
+        "concept": "87389",
+        "metadata": null
+      },
+      {
+        "code": "99468",
+        "concept": "99468",
+        "metadata": null
+      },
+      {
+        "code": "99471",
+        "concept": "99471",
+        "metadata": null
+      },
+      {
+        "code": "99476",
+        "concept": "99476",
+        "metadata": null
+      },
+      {
+        "code": "99469",
+        "concept": "99469",
+        "metadata": null
+      },
+      {
+        "code": "99475",
+        "concept": "99475",
+        "metadata": null
+      },
+      {
+        "code": "86703",
+        "concept": "86703",
+        "metadata": null
+      },
+      {
+        "code": "99211",
+        "concept": "99211",
+        "metadata": null
+      },
+      {
+        "code": "86701",
+        "concept": "86701",
+        "metadata": null
+      },
+      {
+        "code": "99291",
+        "concept": "99291",
+        "metadata": null
+      },
+      {
+        "code": "86702",
+        "concept": "86702",
+        "metadata": null
+      },
+      {
+        "code": "99292",
+        "concept": "99292",
+        "metadata": null
+      }
+    ]
+  },
+  {
+    "policy_id": "fffdc557-54e1-4204-b6bf-96a619c118d0",
+    "policy_uuid": "fffdc557-54e1-4204-b6bf-96a619c118d0",
+    "codes": [
+      {
+        "code": "81327",
+        "concept": "81327",
+        "metadata": null
+      },
+      {
+        "code": "81479",
+        "concept": "81479",
+        "metadata": null
+      },
+      {
+        "code": "81528",
+        "concept": "81528",
+        "metadata": null
+      },
+      {
+        "code": "G0327",
+        "concept": "G0327",
+        "metadata": null
+      },
+      {
+        "code": "81599",
+        "concept": "81599",
+        "metadata": null
+      },
+      {
+        "code": "0002U",
+        "concept": "0002U",
+        "metadata": null
+      },
+      {
+        "code": "0163U",
+        "concept": "0163U",
+        "metadata": null
+      },
+      {
+        "code": "0368U",
+        "concept": "0368U",
+        "metadata": null
+      },
+      {
+        "code": "G0328",
+        "concept": "G0328",
+        "metadata": null
+      },
+      {
+        "code": "Z12.11",
+        "concept": "Z12.11",
+        "metadata": null
+      },
+      {
+        "code": "Z12",
+        "concept": "Z12",
+        "metadata": null
+      },
+      {
+        "code": "Z12.12",
+        "concept": "Z12.12",
+        "metadata": null
+      },
+      {
+        "code": "Z12.10",
+        "concept": "Z12.10",
+        "metadata": null
+      },
+      {
+        "code": "Z12.13",
+        "concept": "Z12.13",
+        "metadata": null
+      },
+      {
+        "code": "Z12.2",
+        "concept": "Z12.2",
+        "metadata": null
+      }
+    ]
+  }
+]

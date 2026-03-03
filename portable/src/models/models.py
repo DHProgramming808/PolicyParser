@@ -104,11 +104,6 @@ class InferenceRealCrossReference:
     correct_codes: List[InferredCode]
     wrong_codes: List[InferredCode]
     missed_codes: List[Concept]
-    metadata: Dict [str, int] = {
-        "num_correct": len(correct_codes),
-        "num_wrong": len(wrong_codes),
-        "num_missed": len(missed_codes)
-    }
 
 
 @dataclass
@@ -116,21 +111,12 @@ class RetrievalRealCrossReference:
     correct_codes: List[RetrievedConcept]
     wrong_codes: List[RetrievedConcept]
     missed_codes: List[Concept]
-    metadata: Dict [str, int] = {
-        "num_correct": len(correct_codes),
-        "num_wrong": len(wrong_codes),
-        "num_missed": len(missed_codes)
-    }
 
 
 @dataclass
 class RetrievalInferenceCrossCheck:
     missed_inference_codes: List[RetrievedConcept]
     excluded_wrong_inference_codes: List [RetrievedConcept]
-    metadata: Dict [str, int] = {
-        "num_missed_inference": len(missed_inference_codes),
-        "num_excluded_inference": len(excluded_wrong_inference_codes)
-    }
 
 
 @dataclass
@@ -146,7 +132,7 @@ class InferenceAccuracyEvaluation:
 class CorrectPolicyCodes:
     policy_id: str
     policy_uuid: str
-    codes = List[Concept]
+    codes: List[Concept]
 
 
 @dataclass
