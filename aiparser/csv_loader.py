@@ -50,7 +50,7 @@ def load_concepts_from_csv(conceptpair_csv_path: str, schema: CsvSchema, *, enco
 
 
 def load_correct_policy_concepts(policy_concept_csv_path: str, schema: PolicyCodeCsvSchema, *, encoding: str = "utf-8") -> List[CorrectPolicyCodes]:
-    correct_policy_codes = List[CorrectPolicyCodes]
+    correct_policy_codes: List[CorrectPolicyCodes] = []
 
     with open(policy_concept_csv_path, "r", encoding = encoding, newline = "") as csvfile:
         reader = csv.DictReader(csvfile)
@@ -71,7 +71,7 @@ def load_correct_policy_concepts(policy_concept_csv_path: str, schema: PolicyCod
             hcpcs_codes = row.get(schema.hcpcs_codes)
             icd_10_codes = row.get(schema.icd_10_codes)
 
-            codes = List[str]
+            codes: List[str] = []
             if hcpcs_codes:
                 hcpcs_codes_split = hcpcs_codes.split("|")
                 codes = codes + hcpcs_codes_split
@@ -79,7 +79,7 @@ def load_correct_policy_concepts(policy_concept_csv_path: str, schema: PolicyCod
                 icd_10_codes_split = icd_10_codes.split("|")
                 codes = codes + icd_10_codes_split
 
-            concept_codes = List[Concept]
+            concept_codes: List[Concept] = []
             for code in codes:
                 concept = Concept(
                     code = code,
@@ -87,13 +87,13 @@ def load_correct_policy_concepts(policy_concept_csv_path: str, schema: PolicyCod
                 )
                 concept_codes.append(concept)
 
-            correctPolicyCode = CorrectPolicyCodes(
+            correct_policy_code = CorrectPolicyCodes(
                 policy_id = policy_id,
                 policy_uuid = policy_uuid,
                 codes = concept_codes
             )
 
-            correct_policy_codes.append(correctPolicyCode)
+            correct_policy_codes.append(correct_policy_code)
 
     if not correct_policy_codes:
         raise ValueError("No valid policy codes were loaded from the CSV file. Please check the file content and schema.")

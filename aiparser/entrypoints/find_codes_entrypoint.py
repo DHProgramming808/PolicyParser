@@ -1,19 +1,24 @@
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 from dataclasses import asdict
 
 
-from aiparser.csv_loader import load_concepts_from_csv, CsvSchema
+from aiparser.csv_loader import load_concepts_from_csv, CsvSchema, PolicyCodeCsvSchema
 from aiparser.pipeline import CodeInferencePipeline, PipelineConfig
+from aiparser.pipelines.validation_pipeline import ValidationPipelineConfig, ResultValidationPipeline
 
 from aiparser.retriever.token_retriever import TokenRetriever
 from aiparser.retriever.openai_embeddint_retriever import OpenAIEmbeddingRetriever
 
 from aiparser.llm.mock_inference import MockCodeInferenceModel
 from aiparser.llm.openai_inference import OpenAIInferenceModel
-from aiparser.models import AuditTrail, DictionaryAudit
+
+from aiparser.data_validation.openai_inference_evaluation import OpenAIEvaluationModel
+from aiparser.data_validation.mock_evaluation import MockEvaluationModel
+
+from aiparser.models import AuditTrail, DictionaryAudit, RetrievedConcept, InferredCode
 from aiparser.audit_utils import sha256_text, env_fingerprint, new_run_id, utc_now_iso
 
 
@@ -64,6 +69,32 @@ def build_pipeline(options: Dict[str, Any] | None = None):
         model_info = {"name": type(model).__name__, "version": "0.2"},
     )
     return pipeline, len(concepts)
+
+
+def build_validation_pipeline(options: Dict[str, Any] | None = None):
+    real_codes_csv = options.get("real_codes_path") or "aiparser/data/policies_cleaned_labels.csv"
+    real_codes_csv_path = Path(real_codes_csv)
+
+    validation_model = str(options.get("inference_model", "mock")).strip().lower()
+
+    if validation_model in ("openai", "oai"):
+        data_evaluation_model = OpenAIEvaluationModel(
+            api_key = options.get("open_api_key"),
+            model = options.get("openai_model") or "gpt-4o-mini",
+            base_url = options.get("openai_base_url") or "https://api.openai.com/v1"
+        )
+    else:
+        data_evaluation_model  = MockEvaluationModel()
+
+
+    validation_pipeline = ResultValidationPipeline(
+        data_evaluation_model = data_evaluation_model,
+        config = ValidationPipelineConfig(temp_config = 0.0),
+        audit_trail = None,
+        model_info = {"name": type(validation_model).__name__, "version": "0.1"},
+    )
+    return validation_pipeline
+
 
 
 def drop_key_recursive(obj, key_to_drop: str):
@@ -118,11 +149,23 @@ def main() -> int:
         )
 
         raw_out = pipeline.run(text, audit_trail = audit)
-        dict_out = asdict(raw_out)
+        
 
+        validation_pipeline = build_validation_pipeline(options)
+
+        mock_retrieved_codes: List[RetrievedConcept] = []
+        inferred_codes = raw_out.inferred
+
+        inference_evaluation = validation_pipeline.run(raw_out.input_text, mock_retrieved_codes, inferred_codes)
+
+        raw_out.model_info["evaluation_result"] = inference_evaluation
+
+        dict_out = asdict(raw_out)
         filtered = drop_key_recursive(dict_out, "input_text")
         filtered = drop_key_recursive(filtered, "openai_api_key")
+        
         sys.stdout.write(json.dumps(filtered))
+
         return 0
     except Exception as e:
         sys.stderr.write(f"Pipeline error: {e}\n")
