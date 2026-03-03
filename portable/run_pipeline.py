@@ -17,6 +17,12 @@ from src.inference.openai_inference import OpenAIInferenceModel
 from src.pipelines.simple_text_inference_pipeline import SimpleTextCodeInferencePipeline
 
 
+def find_correct_codes(text_id: str, correct_codes: List[CorrectPolicyCodes]) -> List[Concept]:
+    for i, cpc in enumerate(correct_codes):
+        if text_id == cpc.policy_id:
+            return cpc.codes
+        
+    return []
 
 
 def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""):
@@ -79,6 +85,8 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
         schema={"code_col": ConceptCodeCsvSchema().code_column, "concept_col": ConceptCodeCsvSchema().concept_column},
     )
 
+    #set up Inference Evaluation Pipeline
+
     #Run inference pipeline
     results: List[Output] = []
     for i, input in enumerate(inputs):
@@ -95,16 +103,22 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
         raw_out = pipeline.run(input.text, audit_trail = audit)
         out = asdict(raw_out)
 
-        print(out)
-
         inferred_codes = out.get("inferred", [])
         audit_trail = out.get("audit", None)
         assert isinstance(inferred_codes, list), f"Expected 'inferred_codes' to be a list, got {type(inferred_codes)}"
+
+        #find correct codes for evaluation pipeline
+        correct_code_concepts = find_correct_codes(input.id, real_codes)
+        correct_codes: Dict[str, str] = {}
+        for cc in correct_code_concepts:
+            correct_codes[cc.code] = cc.concept
     
+        #format output
         inference_output = Output(
             id = input.id,
             name = input.name,
             inferred_codes = inferred_codes,
+            correct_codes = correct_codes,
             audit = audit_trail
         )
         results.append(inference_output)

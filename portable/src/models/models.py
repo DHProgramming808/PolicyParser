@@ -16,6 +16,7 @@ class Output:
     id: str
     name: str
     inferred_codes: List[Dict[str, Any]] = None
+    correct_codes: List[Dict[str, str]] = None
     audit: Optional[Dict[str, Any]] = None
 
 @dataclass

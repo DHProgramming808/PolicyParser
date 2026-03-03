@@ -27,7 +27,7 @@ class SimpleTextCodeInferencePipeline:
         self._audit_trail = audit_trail
         self._model_info = model_info or {}
 
-    def run(self, input_text: str, audit_trail: AuditTrail = None) -> InferenceResult:
+    def run(self, input_text: str, correct_codes: Optional[List[str]] = None, audit_trail: AuditTrail = None) -> InferenceResult:
         self._audit_trail = audit_trail
 
         retrieved_raw = self._retriever.retrieve(input_text, top_k=self._top_k)
@@ -56,6 +56,8 @@ class SimpleTextCodeInferencePipeline:
             )
 
         inferred = self._model.infer_codes(input_text, retrieved)
+
+
 
         return InferenceResult(
             input_text = input_text,
