@@ -112,7 +112,7 @@ class InferenceRealCrossReference:
 
 
 @dataclass
-class RetreivalRealCrossReference:
+class RetrievalRealCrossReference:
     correct_codes: List[RetrievedConcept]
     wrong_codes: List[RetrievedConcept]
     missed_codes: List[Concept]
