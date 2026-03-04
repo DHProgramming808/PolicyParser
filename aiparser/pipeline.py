@@ -37,6 +37,8 @@ class CodeInferencePipeline:
         retrieved_raw = self._retriever.retrieve(input_text, top_k=self._config.top_k)
         retrieved = [r for r in retrieved_raw if r.score >= self._config.min_retrieval_score]
 
+        print(retrieved)
+
         # sys.stderr.write(f"Retrieved {len(retrieved)} concepts after applying min_retrieval_score filter.")
         retrieval_audit = RetrievalAudit(
             retriever_name = type(self._retriever).__name__,
