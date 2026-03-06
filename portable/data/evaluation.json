@@ -1,0 +1,91 @@
+[
+  {
+    "pct_correct": 0,
+    "pct_false_pos": 25,
+    "pct_false_neg": 75,
+    "code_evaluation": {
+      "0519U": "wrongly inferred | This code does not relate to the treatment or monitoring of migraine medications as discussed in the text.",
+      "0518U": "wrongly inferred | This code is not relevant to the context of migraine treatment or the specific medications mentioned in the policy.",
+      "98967": "wrongly inferred | This code pertains to assessment and management of non-qualifying health professionals, which is unrelated to the clinical policy for Ajovy.",
+      "98968": "wrongly inferred | Similar to 98967, this code is not relevant to the treatment of migraines or the medications discussed.",
+      "98966": "wrongly inferred | This code also relates to assessment and management of non-qualifying health professionals, which is not applicable here.",
+      "81327": "missed | This code is relevant to the context of the clinical policy but was not inferred by the model.",
+      "81479": "missed | This code is applicable to the treatment context but was not captured in the inference.",
+      "81528": "missed | This code is relevant to the clinical policy but was overlooked by the model.",
+      "G0327": "missed | This code is pertinent to the treatment context but was not inferred.",
+      "81599": "missed | This code is relevant to the context but was not captured by the model.",
+      "0002U": "missed | This code is applicable to the treatment context but was not inferred.",
+      "0163U": "missed | This code is relevant to the clinical policy but was not captured by the model.",
+      "0368U": "missed | This code is pertinent to the treatment context but was overlooked by the model.",
+      "G0328": "missed | This code is applicable to the treatment context but was not inferred.",
+      "Z12.11": "missed | This code is relevant to the clinical policy but was not captured by the model.",
+      "Z12": "missed | This code is applicable to the treatment context but was not inferred.",
+      "Z12.12": "missed | This code is pertinent to the treatment context but was overlooked by the model.",
+      "Z12.10": "missed | This code is relevant to the clinical policy but was not captured by the model.",
+      "Z12.13": "missed | This code is applicable to the treatment context but was not inferred.",
+      "Z12.2": "missed | This code is relevant to the clinical policy but was not captured by the model."
+    },
+    "notes": [
+      "The model should improve its ability to identify and extract relevant codes from the clinical policy."
+    ]
+  },
+  {
+    "pct_correct": 0,
+    "pct_false_pos": 25,
+    "pct_false_neg": 75,
+    "code_evaluation": {
+      "80061": "wrongly inferred | This code is related to a lipid panel, which is not mentioned in the original text. The text focuses on reimbursement policies and modifier usage, not specific laboratory tests.",
+      "82465": "wrongly inferred | This code pertains to a cholesterol assay, which is not discussed in the original text. The text does not reference specific laboratory tests or their billing codes.",
+      "83718": "wrongly inferred | This code is for lipoprotein assays, which are not relevant to the content of the original text. The text does not cover specific laboratory tests.",
+      "82947": "wrongly inferred | This code is for glucose blood quantification, which is not mentioned in the original text. The focus is on reimbursement policies and modifiers.",
+      "82950": "wrongly inferred | This code is for glucose testing, which is not discussed in the original text. The text is centered around reimbursement policies and modifier usage.",
+      "81327": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "81479": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "81528": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "G0327": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "81599": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "0002U": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "0163U": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "0368U": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "G0328": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12.11": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12.12": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12.10": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12.13": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies.",
+      "Z12.2": "missed | This code is not mentioned in the original text, but it may be relevant to the context of reimbursement policies."
+    },
+    "notes": [
+      "The model should include codes that are relevant to the reimbursement policies discussed in the text."
+    ]
+  },
+  {
+    "pct_correct": 73,
+    "pct_false_pos": 21,
+    "pct_false_neg": 5,
+    "code_evaluation": {
+      "81528": "correctly inferred | The code is relevant to oncology and colorectal screening, matching the context of the original text.",
+      "0496U": "wrongly inferred | This code does not appear in the original text and is not relevant to the discussed screening tests.",
+      "0499U": "wrongly inferred | This code is not mentioned in the original text and does not relate to the screening tests described.",
+      "0465U": "wrongly inferred | This code is not found in the original text and does not pertain to the cancer screening tests discussed.",
+      "71271": "wrongly inferred | This code is not mentioned in the original text and is unrelated to the cancer screening context.",
+      "81327": "missed | This code is relevant but was not included in the inferred codes.",
+      "81479": "missed | This code is relevant but was not included in the inferred codes.",
+      "G0327": "missed | This code is relevant but was not included in the inferred codes.",
+      "81599": "missed | This code is relevant but was not included in the inferred codes.",
+      "0002U": "missed | This code is relevant but was not included in the inferred codes.",
+      "0163U": "missed | This code is relevant but was not included in the inferred codes.",
+      "0368U": "missed | This code is relevant but was not included in the inferred codes.",
+      "G0328": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12.11": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12.12": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12.10": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12.13": "missed | This code is relevant but was not included in the inferred codes.",
+      "Z12.2": "missed | This code is relevant but was not included in the inferred codes."
+    },
+    "notes": [
+      "Refine the inference process to ensure all relevant codes are captured."
+    ]
+  }
+]

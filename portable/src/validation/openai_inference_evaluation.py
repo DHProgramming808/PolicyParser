@@ -5,6 +5,7 @@ import os
 import sys
 
 from typing import List, Dict, Optional, Any
+from dataclasses import asdict
 
 from openai import OpenAI
 
@@ -33,9 +34,10 @@ def build_evaluation_schema(name: str = "text_code_evaluation_response") -> Dict
                         "properties": {
                             "code": {"type": "string"},
                             "code_inference_state": {"type": "string"},
-                            "eval": {"type": "string"}
+                            "eval": {"type": "string"},
+                            "notes": {"type": "string"} # TODO change to list of notes not just a single string
                         },
-                        "required": ["code", "code_inference_state", "eval"],
+                        "required": ["code", "code_inference_state", "eval", "notes"],
                     },
                 }
             },
@@ -90,12 +92,32 @@ def _set_client(api_key: Optional[str], base_url: Optional[str]) -> OpenAI:
     return OpenAI(api_key=key, base_url=url)
 
 
-def _build_evalute_inference_prompt(original_text: str, inference_cross_reference: InferenceRealCrossReference) -> str:
+def _build_evaluate_inference_prompt(original_text: str, inference_cross_reference: InferenceRealCrossReference) -> str:
 
 
-    correct_codes = ({inferred_code.code, inferred_code.matched_concepts[0]} for inferred_code in inference_cross_reference.correct_codes)
-    wrong_codes = ({inferred_code.code, inferred_code.matched_concepts[0]} for inferred_code in inference_cross_reference.wrong_codes)
-    missed_codes = ({concept.code, concept.concept} for concept in inference_cross_reference.missed_codes)
+    correct_codes = [
+        {
+            "code": inferred_code.code,
+            "concept": inferred_code.matched_concepts[0] if inferred_code.matched_concepts else None,
+        }
+        for inferred_code in inference_cross_reference.correct_codes
+    ]
+
+    wrong_codes = [
+        {
+            "code": inferred_code.code,
+            "concept": inferred_code.matched_concepts[0] if inferred_code.matched_concepts else None,
+        }
+        for inferred_code in inference_cross_reference.wrong_codes
+    ]
+
+    missed_codes = [
+        {
+            "code": concept.code,
+            "concept": concept.concept,
+        }
+        for concept in inference_cross_reference.missed_codes
+    ]
     
     
     return (
@@ -108,7 +130,7 @@ def _build_evalute_inference_prompt(original_text: str, inference_cross_referenc
         "MISSED CODES AND CONCEPTS (FALSE NEGATIVES):\n"
         f"{json.dumps(missed_codes, ensure_ascii = False)}\n\n"
         "Return JSON with key 'inferred' (array). Each item must have:\n"
-        "code (string), code_inference_state (whether the code was correctly inferred, wrongly inferred, or missed), eval (why the code was correct, wrong, or missed)"
+        "code (string), code_inference_state (whether the code was correctly inferred, wrongly inferred, or missed), eval (why the code was correct, wrong, or missed), notes (if code was wrong or missed, notes on how to improve llm inference and retrieval of these codes based on the concepts and original text)"
     )
 
 def _get_distribution_of_codes_accuracy(inference_cross_reference: InferenceRealCrossReference) -> {int, int, int}:
@@ -148,7 +170,7 @@ class OpenAIEvaluationModel():
     def evaulate_inference_accuracy(self, original_text: str, inference_cross_reference: InferenceRealCrossReference, retrieval_cross_reference: RetreivalRealCrossReference, retrieval_inference_cross_check: RetrievalInferenceCrossCheck) -> InferenceAccuracyEvaluation:
         self._client = _set_client(self._api_key, self._base_url)
 
-        inference_evaluation_prompt = _build_evalute_inference_prompt(original_text, inference_cross_reference)
+        inference_evaluation_prompt = _build_evaluate_inference_prompt(original_text, inference_cross_reference)
         pct_correct, pct_false_pos, pct_false_neg = _get_distribution_of_codes_accuracy(inference_cross_reference)
 
         response = self._client.chat.completions.create(
@@ -156,12 +178,11 @@ class OpenAIEvaluationModel():
             temperature = 0.0,
             response_format = {"type": "json_schema", "json_schema": self._schema},
             messages = [
-                {"role": "system", "system": self._prompt},
-                {"role": "user", "user": inference_evaluation_prompt}
+                {"role": "system", "content": self._prompt},
+                {"role": "user", "content": inference_evaluation_prompt}
             ],
             timeout = self._timeout_s
         )
-
 
         content = (response.choices[0].message.content or "").strip()
 
@@ -173,16 +194,16 @@ class OpenAIEvaluationModel():
             code = str(item.get("code"))
             code_inference_state = str(item.get("code_inference_state"))
             evaluation = str(item.get("eval"))
+            notes = str(item.get("notes"))
             
             code_evals[code] = (code_inference_state + " | " + evaluation)
-
 
         out: InferenceAccuracyEvaluation = InferenceAccuracyEvaluation(
             pct_correct = pct_correct,
             pct_false_pos = pct_false_pos,
             pct_false_neg = pct_false_neg,
             code_evaluation = code_evals,
-            notes = [],
+            notes = [notes],
         )
 
         return out
