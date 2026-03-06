@@ -29,17 +29,21 @@ def find_correct_codes(text_id: str, correct_codes: List[CorrectPolicyCodes]) ->
     return []
 
 
-def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""):
-    #load concepts and input data initialize
-    input = "policies_cleaned_mini.csv"
-    validation = "policies_cleaned_labels_mini.csv"
-    out_file = "output.json"
+def main(input_file: str = "", validation: str = "", out_file: str = "", api_key: str = ""):
+    #TODO load concepts and input data initialize
+    
+    if (input_file == ""):
+        input_file = "policies_cleaned_mini.csv"
+    if (validation == ""):
+        validation = "policies_cleaned_labels_mini.csv"
+    if (out_file == ""):
+        out_file = "output.json"
 
     #test stub for evaluation
     evaluation_file = "evaluation.json"
 
     concepts_csv_path = Path("data/hcpcs.csv")
-    input_path = Path("data/" + input)
+    input_path = Path("data/" + input_file)
     validation_csv_path = Path("data/" + validation)
     out_path = Path("data/")
 
@@ -107,7 +111,7 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
     #Run inference pipeline
     results: List[Output] = []
     raw_results: List[InferenceResult] = []
-    for i, input in enumerate(inputs):
+    for i, input_file in enumerate(inputs):
         audit = AuditTrail(
             run_id=new_run_id(),
             timestamp_utc=utc_now_iso(),
@@ -118,7 +122,7 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
             model=None
         )
 
-        raw_out: InferenceResult = pipeline.run(input.text, audit_trail = audit)
+        raw_out: InferenceResult = pipeline.run(input_file.text, audit_trail = audit)
         out = asdict(raw_out)
 
         inferred_codes = out.get("inferred", [])
@@ -127,8 +131,8 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
     
         #format output
         inference_output = Output(
-            id = input.id,
-            name = input.name,
+            id = input_file.id,
+            name = input_file.name,
             inferred_codes = inferred_codes,
             audit = audit_trail
         )
@@ -154,7 +158,7 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
         retrieval_codes: List[RetrievalCandidateAudit] = raw_out.audit.retrieval.candidates
 
         #find correct codes for evaluation pipeline
-        correct_code_concepts = find_correct_codes(input.id, real_codes)
+        correct_code_concepts = find_correct_codes(input_file.id, real_codes)
         correct_codes: Dict[str, str] = {}
         for cc in correct_code_concepts:
             correct_codes[cc.code] = cc.concept
@@ -187,4 +191,4 @@ def main(input: str = "", validation: str = "", out: str = "", api_key: str = ""
 
 
 if __name__ == "__main__":
-    main(input = "policies_cleaned_mini.csv", validation = "policies_cleaned_lables_mini.csv", out = "output.json", api_key = "")
+    main(input_file = "policies_cleaned_mini.csv", validation = "policies_cleaned_labels_mini.csv", out_file = "output.json", api_key = "")

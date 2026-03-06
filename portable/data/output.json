@@ -19,40 +19,40 @@
         "matched_concepts": [
           "Ther rx mntr 90+ pn&mtl hlth"
         ],
-        "justification": "The policy outlines criteria for ongoing therapy and monitoring of treatment effectiveness, which relates to the concept of therapeutic monitoring in mental health."
+        "justification": "The policy outlines criteria for ongoing therapy and monitoring of migraine treatments, which relates to the therapeutic monitoring of health."
       },
       {
         "code": "98967",
-        "confidence": 0.8,
-        "score": 0.8,
-        "matched_concepts": [
-          "Ph1 assmt&mgmt nqhp 11-20"
-        ],
-        "justification": "The policy includes assessment and management criteria for migraine treatment, which corresponds to the assessment and management of patients."
-      },
-      {
-        "code": "98968",
-        "confidence": 0.75,
-        "score": 0.75,
-        "matched_concepts": [
-          "Ph1 assmt&mgmt nqhp 21-30"
-        ],
-        "justification": "The policy's focus on patient assessment and management for migraine treatment aligns with the concept of patient management in healthcare."
-      },
-      {
-        "code": "98966",
         "confidence": 0.7,
         "score": 0.7,
         "matched_concepts": [
+          "Ph1 assmt&mgmt nqhp 11-20"
+        ],
+        "justification": "The policy includes assessment and management criteria for migraine treatment, which can be associated with the assessment and management codes."
+      },
+      {
+        "code": "98968",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Ph1 assmt&mgmt nqhp 21-30"
+        ],
+        "justification": "Similar to the previous code, this code relates to assessment and management, which is relevant to the policy's focus on migraine treatment criteria."
+      },
+      {
+        "code": "98966",
+        "confidence": 0.65,
+        "score": 0.65,
+        "matched_concepts": [
           "Ph1 assmt&mgmt nqhp 5-10"
         ],
-        "justification": "The initial approval criteria for migraine treatment involve assessment and management, which relates to the concept of patient assessment."
+        "justification": "This code also pertains to assessment and management, which is a key component of the policy's criteria for migraine treatment."
       }
     ],
     "correct_codes": null,
     "audit": {
-      "run_id": "8b951b2c-8ae2-4344-95bc-0da114c3b5d9",
-      "timestamp_utc": "2026-03-06T17:48:26.189760+00:00",
+      "run_id": "00486664-a1f9-4f56-b8dd-6421152f77b6",
+      "timestamp_utc": "2026-03-06T17:56:30.003203+00:00",
       "input_hash": "d2fc9a7dd954d1770ae80fce8fc5d71945f837a908b68b2b2724f075421e828f",
       "dictionary": {
         "row_count": 1321,
@@ -70,12 +70,12 @@
           {
             "code": "98967",
             "concept": "Ph1 assmt&mgmt nqhp 11-20",
-            "retrieval_score": 0.44310117919651804
+            "retrieval_score": 0.4430166177000408
           },
           {
             "code": "98968",
             "concept": "Ph1 assmt&mgmt nqhp 21-30",
-            "retrieval_score": 0.43707984118020543
+            "retrieval_score": 0.4370351575775367
           },
           {
             "code": "98966",
@@ -85,17 +85,17 @@
           {
             "code": "0519U",
             "concept": "Ther rx mntr meds p/d/a 110+",
-            "retrieval_score": 0.3897483465473038
+            "retrieval_score": 0.3898067352574379
           },
           {
             "code": "97763",
             "concept": "Orth/prostc mgmt sbsq enc",
-            "retrieval_score": 0.38141629070467975
+            "retrieval_score": 0.3813233837009215
           },
           {
             "code": "C1719",
             "concept": "Brachytx, NS, Non-HDRIr-192",
-            "retrieval_score": 0.37927068085278043
+            "retrieval_score": 0.37927421024621877
           },
           {
             "code": "0349U",
@@ -110,7 +110,7 @@
           {
             "code": "90677",
             "concept": "Pcv20 vaccine im",
-            "retrieval_score": 0.3731733449919951
+            "retrieval_score": 0.37314946777861063
           },
           {
             "code": "0392U",
@@ -120,22 +120,22 @@
           {
             "code": "0517U",
             "concept": "Ther rx mntr 80+ psyactiv rx",
-            "retrieval_score": 0.3698583662357018
+            "retrieval_score": 0.3699255713750858
           },
           {
             "code": "90673",
             "concept": "RIV3 vaccine no preserv im",
-            "retrieval_score": 0.36979564474822013
+            "retrieval_score": 0.36982871129081113
           },
           {
             "code": "Q0220",
             "concept": "Tixagev and cilgav, 300mg",
-            "retrieval_score": 0.3643572931438077
+            "retrieval_score": 0.36445618779547095
           },
           {
             "code": "Q0243",
             "concept": "Casirivimab and imdevimab",
-            "retrieval_score": 0.3632614441420227
+            "retrieval_score": 0.3633078364883942
           },
           {
             "code": "0477U",
@@ -145,7 +145,7 @@
           {
             "code": "90684",
             "concept": "Pcv21 vaccine im",
-            "retrieval_score": 0.3614900163415666
+            "retrieval_score": 0.3615251020561714
           },
           {
             "code": "A9576",
@@ -155,12 +155,12 @@
           {
             "code": "90749",
             "concept": "Unlisted vaccine/toxoid [only when used to identify a COVID-19 vaccine]",
-            "retrieval_score": 0.35548019494888455
+            "retrieval_score": 0.3555427828116331
           },
           {
             "code": "90671",
             "concept": "Pcv15 vaccine im",
-            "retrieval_score": 0.355018339382671
+            "retrieval_score": 0.35501700509633727
           },
           {
             "code": "Q0221",
@@ -170,17 +170,17 @@
           {
             "code": "C2635",
             "concept": "Brachytx, non-str, HA, P-103",
-            "retrieval_score": 0.34993580359627613
+            "retrieval_score": 0.34990279655886625
           },
           {
             "code": "90756",
             "concept": "Cciiv4 vacc abx free im",
-            "retrieval_score": 0.3477994019521968
+            "retrieval_score": 0.34784242166405727
           },
           {
             "code": "77307",
             "concept": "Telethx isodose plan cplx",
-            "retrieval_score": 0.34749096493593007
+            "retrieval_score": 0.34749028013788263
           },
           {
             "code": "0476U",
@@ -190,7 +190,7 @@
           {
             "code": "90653",
             "concept": "IIV adjuvant vaccine im",
-            "retrieval_score": 0.34380376372015986
+            "retrieval_score": 0.3438373376893001
           },
           {
             "code": "98971",
@@ -200,12 +200,12 @@
           {
             "code": "97530",
             "concept": "Therapeutic activities",
-            "retrieval_score": 0.34101541845853794
+            "retrieval_score": 0.3410245940423715
           },
           {
             "code": "Q0222",
             "concept": "Bebtelovimab 175 mg",
-            "retrieval_score": 0.34037046140891597
+            "retrieval_score": 0.34039108997310724
           },
           {
             "code": "0518U",
@@ -220,7 +220,7 @@
           {
             "code": "90674",
             "concept": "CCIIV4 vac no prsv 0.5 ml im",
-            "retrieval_score": 0.33726012186552967
+            "retrieval_score": 0.3373262286538016
           },
           {
             "code": "0051U",
@@ -230,7 +230,7 @@
           {
             "code": "90661",
             "concept": "Cciiv3 vac abx fr 0.5 ml im",
-            "retrieval_score": 0.3331293785850025
+            "retrieval_score": 0.3331426861493638
           },
           {
             "code": "90670",
@@ -245,37 +245,37 @@
           {
             "code": "0516U",
             "concept": "Rx metab rxgenomic gnotyp 40",
-            "retrieval_score": 0.3297109753499189
+            "retrieval_score": 0.3297915324493024
           },
           {
             "code": "Q0240",
             "concept": "Casirivi and imdevi 600 mg",
-            "retrieval_score": 0.3286942551602014
+            "retrieval_score": 0.32868618999735505
           },
           {
             "code": "80061",
             "concept": "Lipid panel [only when billed with ICD-10-CM code Z13.6]",
-            "retrieval_score": 0.32865363673555126
+            "retrieval_score": 0.328683721303293
           },
           {
             "code": "97164",
             "concept": "Pt re-eval est plan care",
-            "retrieval_score": 0.32839646538797024
-          },
-          {
-            "code": "90739",
-            "concept": "Hepb vacc 2/4 dose adult im",
-            "retrieval_score": 0.32828218653517
+            "retrieval_score": 0.3283547150294245
           },
           {
             "code": "A9577",
             "concept": "Inj multihance",
-            "retrieval_score": 0.3279558105771095
+            "retrieval_score": 0.3279292393254129
+          },
+          {
+            "code": "90739",
+            "concept": "Hepb vacc 2/4 dose adult im",
+            "retrieval_score": 0.32787974930499
           },
           {
             "code": "Q0244",
             "concept": "Casirivi and imdevi 1200 mg",
-            "retrieval_score": 0.3273328379803487
+            "retrieval_score": 0.32728319861434324
           },
           {
             "code": "A9608",
@@ -290,12 +290,12 @@
           {
             "code": "93998",
             "concept": "Noninvas vasc dx study proc",
-            "retrieval_score": 0.3235696502104997
+            "retrieval_score": 0.32359925300432046
           },
           {
             "code": "90732",
             "concept": "PPSV23 vacc 2 yrs+ subq/im",
-            "retrieval_score": 0.3226305987210727
+            "retrieval_score": 0.32263302102395625
           },
           {
             "code": "0435U",
@@ -305,12 +305,12 @@
           {
             "code": "90685",
             "concept": "IIV4 vacc no prsv 0.25 ml im",
-            "retrieval_score": 0.3210827807527538
+            "retrieval_score": 0.3210618601589324
           },
           {
             "code": "A9697",
             "concept": "Inj, magtrace per study dose",
-            "retrieval_score": 0.3205424885800704
+            "retrieval_score": 0.32050650916163864
           },
           {
             "code": "Q0245",
@@ -356,40 +356,40 @@
         "matched_concepts": [
           "Assay bld/serum cholesterol [only when billed with ICD-10-CM code Z13.6]"
         ],
-        "justification": "This code is relevant to the lipid panel mentioned in the policy, indicating its importance in the context of reimbursement."
-      },
-      {
-        "code": "83718",
-        "confidence": 0.8,
-        "score": 0.8,
-        "matched_concepts": [
-          "Assay of lipoprotein [only when billed with ICD-10-CM code Z13.6]"
-        ],
-        "justification": "Similar to the previous codes, this assay is related to lipid management and is likely to be included in the reimbursement policy."
+        "justification": "This code is relevant as it pertains to cholesterol testing, which is often included in reimbursement policies for preventive care."
       },
       {
         "code": "82947",
-        "confidence": 0.75,
-        "score": 0.75,
+        "confidence": 0.8,
+        "score": 0.8,
         "matched_concepts": [
           "Assay glucose blood quant [only when billed with ICD-10-CM code Z13.1]"
         ],
-        "justification": "The policy emphasizes the importance of proper coding for reimbursement, and glucose testing is a standard procedure that may be relevant."
+        "justification": "The policy emphasizes the importance of proper coding for reimbursement, and glucose testing is a standard procedure that fits within these guidelines."
       },
       {
         "code": "82950",
-        "confidence": 0.7,
-        "score": 0.7,
+        "confidence": 0.75,
+        "score": 0.75,
         "matched_concepts": [
           "Glucose test [only when billed with ICD-10-CM code Z13.1]"
         ],
-        "justification": "This code is also related to glucose testing, which is commonly performed and may be included in the reimbursement guidelines."
+        "justification": "Similar to the previous code, this glucose test is relevant for reimbursement under specific conditions outlined in the policy."
+      },
+      {
+        "code": "G0288",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Recon, cta for surg plan"
+        ],
+        "justification": "This code relates to surgical planning, which is relevant to the modifier usage and reimbursement policies discussed in the document."
       }
     ],
     "correct_codes": null,
     "audit": {
-      "run_id": "a3e01b42-1148-4d67-8ae7-2c2c02121618",
-      "timestamp_utc": "2026-03-06T17:48:35.258595+00:00",
+      "run_id": "a4ff2907-7d24-44c9-89e1-715325b2a0c5",
+      "timestamp_utc": "2026-03-06T17:56:38.261115+00:00",
       "input_hash": "d2fc9a7dd954d1770ae80fce8fc5d71945f837a908b68b2b2724f075421e828f",
       "dictionary": {
         "row_count": 1321,
@@ -407,12 +407,12 @@
           {
             "code": "98968",
             "concept": "Ph1 assmt&mgmt nqhp 21-30",
-            "retrieval_score": 0.4199332577608189
+            "retrieval_score": 0.4198981611949073
           },
           {
             "code": "98967",
             "concept": "Ph1 assmt&mgmt nqhp 11-20",
-            "retrieval_score": 0.4163305973990853
+            "retrieval_score": 0.4162416794516881
           },
           {
             "code": "98966",
@@ -422,12 +422,12 @@
           {
             "code": "97763",
             "concept": "Orth/prostc mgmt sbsq enc",
-            "retrieval_score": 0.37915471868571027
+            "retrieval_score": 0.37909276258578056
           },
           {
             "code": "80061",
             "concept": "Lipid panel [only when billed with ICD-10-CM code Z13.6]",
-            "retrieval_score": 0.3655917883747665
+            "retrieval_score": 0.365652633007802
           },
           {
             "code": "0054U",
@@ -442,7 +442,7 @@
           {
             "code": "97139",
             "concept": "Physical medicine procedure",
-            "retrieval_score": 0.3329208410059714
+            "retrieval_score": 0.33284138519941814
           },
           {
             "code": "97799",
@@ -452,17 +452,17 @@
           {
             "code": "0519U",
             "concept": "Ther rx mntr meds p/d/a 110+",
-            "retrieval_score": 0.33046318438423294
+            "retrieval_score": 0.3305216361399072
           },
           {
             "code": "82465",
             "concept": "Assay bld/serum cholesterol [only when billed with ICD-10-CM code Z13.6]",
-            "retrieval_score": 0.32663038415278295
+            "retrieval_score": 0.32665193968946366
           },
           {
             "code": "83718",
             "concept": "Assay of lipoprotein [only when billed with ICD-10-CM code Z13.6]",
-            "retrieval_score": 0.3262172963297452
+            "retrieval_score": 0.3263048117602581
           },
           {
             "code": "0349U",
@@ -477,7 +477,7 @@
           {
             "code": "82947",
             "concept": "Assay glucose blood quant [only when billed with ICD-10-CM code Z13.1]",
-            "retrieval_score": 0.3214901270258041
+            "retrieval_score": 0.32150302413238796
           },
           {
             "code": "0723T",
@@ -497,12 +497,12 @@
           {
             "code": "82950",
             "concept": "Glucose test [only when billed with ICD-10-CM code Z13.1]",
-            "retrieval_score": 0.31234861713267736
+            "retrieval_score": 0.3123908097091936
           },
           {
             "code": "G0288",
             "concept": "Recon, cta for surg plan",
-            "retrieval_score": 0.3116615680899597
+            "retrieval_score": 0.3116394474652306
           },
           {
             "code": "98970",
@@ -512,12 +512,12 @@
           {
             "code": "C1719",
             "concept": "Brachytx, NS, Non-HDRIr-192",
-            "retrieval_score": 0.31101941791954446
+            "retrieval_score": 0.31099629393868444
           },
           {
             "code": "97164",
             "concept": "Pt re-eval est plan care",
-            "retrieval_score": 0.3099715707591505
+            "retrieval_score": 0.30994046757002924
           },
           {
             "code": "84478",
@@ -527,7 +527,7 @@
           {
             "code": "77307",
             "concept": "Telethx isodose plan cplx",
-            "retrieval_score": 0.30921978590592497
+            "retrieval_score": 0.3092082648075507
           },
           {
             "code": "G2250",
@@ -537,7 +537,7 @@
           {
             "code": "92608",
             "concept": "Ex for speech device rx addl",
-            "retrieval_score": 0.3087461508395736
+            "retrieval_score": 0.308739348565221
           },
           {
             "code": "0051U",
@@ -592,7 +592,7 @@
           {
             "code": "C2635",
             "concept": "Brachytx, non-str, HA, P-103",
-            "retrieval_score": 0.29068405857437096
+            "retrieval_score": 0.2906752014793653
           },
           {
             "code": "63621",
@@ -612,27 +612,32 @@
           {
             "code": "A9699",
             "concept": "Radiopharm rx agent noc",
-            "retrieval_score": 0.28972612672118014
+            "retrieval_score": 0.2897455715059496
           },
           {
             "code": "0517U",
             "concept": "Ther rx mntr 80+ psyactiv rx",
-            "retrieval_score": 0.28961506636708045
+            "retrieval_score": 0.2896884124625748
           },
           {
             "code": "92607",
             "concept": "Ex for speech device rx 1hr",
-            "retrieval_score": 0.2893761863873766
+            "retrieval_score": 0.2893483192781707
           },
           {
             "code": "74280",
             "concept": "X-ray xm colon 2cntrst std",
-            "retrieval_score": 0.28865246854308024
+            "retrieval_score": 0.2886206643202014
           },
           {
             "code": "81528",
             "concept": "Oncology colorectal scr",
-            "retrieval_score": 0.28824681219951975
+            "retrieval_score": 0.2882488222616293
+          },
+          {
+            "code": "G6016",
+            "concept": "Delivery comp imrt",
+            "retrieval_score": 0.2879775650838211
           },
           {
             "code": "98972",
@@ -640,19 +645,14 @@
             "retrieval_score": 0.28794108357906134
           },
           {
-            "code": "G6016",
-            "concept": "Delivery comp imrt",
-            "retrieval_score": 0.28793997906779895
-          },
-          {
             "code": "77089",
             "concept": "Tbs dxa cal w/i&r fx risk",
-            "retrieval_score": 0.28738614860068373
+            "retrieval_score": 0.28739738898575834
           },
           {
-            "code": "92132",
-            "concept": "Cptrzd oph dx img ant sgm",
-            "retrieval_score": 0.2868813110130985
+            "code": "77417",
+            "concept": "Radiology port film(s)",
+            "retrieval_score": 0.28690809732611605
           }
         ]
       },
@@ -684,7 +684,7 @@
         "matched_concepts": [
           "Oncology colorectal scr"
         ],
-        "justification": "The policy discusses colorectal cancer screening tests, and code 81528 is related to oncology colorectal screening."
+        "justification": "The policy discusses colorectal cancer screening tests, and this code is specifically related to oncology colorectal screening."
       },
       {
         "code": "0496U",
@@ -693,40 +693,40 @@
         "matched_concepts": [
           "Onc clrct cfdna 8/7 genes"
         ],
-        "justification": "This code pertains to colorectal cancer genetic testing, which aligns with the policy's focus on genetic and biomarker tests for cancer screening."
+        "justification": "This code pertains to colorectal cancer screening using cfDNA, which aligns with the policy's focus on genetic tests for cancer screening."
       },
       {
-        "code": "0499U",
+        "code": "0498U",
         "confidence": 0.8,
         "score": 0.8,
         "matched_concepts": [
-          "Onc clrct&lng dna ngs 8genes"
+          "Onc clrct ngs mut detc 43gen"
         ],
-        "justification": "This code is relevant to both colorectal and lung cancer genetic testing, which is mentioned in the policy regarding screening tests."
-      },
-      {
-        "code": "0465U",
-        "confidence": 0.75,
-        "score": 0.75,
-        "matched_concepts": [
-          "Onc urthl carc dna qmsp 2gen"
-        ],
-        "justification": "This code relates to urinary biomarker tests, which are discussed in the policy for screening pre-cancerous conditions."
+        "justification": "This code relates to next-generation sequencing for colorectal cancer, relevant to the genetic screening tests mentioned in the policy."
       },
       {
         "code": "71271",
-        "confidence": 0.7,
-        "score": 0.7,
+        "confidence": 0.75,
+        "score": 0.75,
         "matched_concepts": [
           "Ct thorax lung cancer scr c-"
         ],
-        "justification": "This code is for lung cancer screening, which is a focus of the policy, particularly in high-risk populations."
+        "justification": "The policy includes lung cancer screening, and this code is associated with CT screening for lung cancer."
+      },
+      {
+        "code": "0465U",
+        "confidence": 0.7,
+        "score": 0.7,
+        "matched_concepts": [
+          "Onc urthl carc dna qmsp 2gen"
+        ],
+        "justification": "This code is related to urinary biomarkers for cancer, which is mentioned in the context of screening tests in the policy."
       }
     ],
     "correct_codes": null,
     "audit": {
-      "run_id": "08e7e436-d9b6-4c84-a711-cde0bd14ac14",
-      "timestamp_utc": "2026-03-06T17:48:42.322536+00:00",
+      "run_id": "ca6ce49d-1eb5-4ac0-955a-05d0af18d0d9",
+      "timestamp_utc": "2026-03-06T17:56:51.625300+00:00",
       "input_hash": "d2fc9a7dd954d1770ae80fce8fc5d71945f837a908b68b2b2724f075421e828f",
       "dictionary": {
         "row_count": 1321,
@@ -744,22 +744,22 @@
           {
             "code": "81528",
             "concept": "Oncology colorectal scr",
-            "retrieval_score": 0.5009089708609803
+            "retrieval_score": 0.5009215869546668
           },
           {
             "code": "0478U",
             "concept": "Onc nsclc dna&rna dpcr 9gens",
-            "retrieval_score": 0.4378892748462218
+            "retrieval_score": 0.4379444883309018
           },
           {
             "code": "74263",
             "concept": "Ct colonography screening",
-            "retrieval_score": 0.43163001928310224
+            "retrieval_score": 0.43159319492201204
           },
           {
             "code": "74263",
             "concept": "Ct colonography screening",
-            "retrieval_score": 0.43157674101963633
+            "retrieval_score": 0.43159319492201204
           },
           {
             "code": "0496U",
@@ -769,12 +769,12 @@
           {
             "code": "74280",
             "concept": "X-ray xm colon 2cntrst std",
-            "retrieval_score": 0.4228217856941158
+            "retrieval_score": 0.4227865521225758
           },
           {
             "code": "74270",
             "concept": "X-ray xm colon 1cntrst std",
-            "retrieval_score": 0.41488788894515116
+            "retrieval_score": 0.4148113653388271
           },
           {
             "code": "0461U",
@@ -784,7 +784,7 @@
           {
             "code": "0250U",
             "concept": "Onc sld org neo dna 505 gene",
-            "retrieval_score": 0.40815302847459795
+            "retrieval_score": 0.4080895785027892
           },
           {
             "code": "71271",
@@ -794,12 +794,12 @@
           {
             "code": "76380",
             "concept": "CAT scan follow-up study",
-            "retrieval_score": 0.4023872421658246
+            "retrieval_score": 0.402335858890656
           },
           {
             "code": "U0002",
             "concept": "Covid-19 lab test non-cdc",
-            "retrieval_score": 0.4000594451348067
+            "retrieval_score": 0.40009473463308215
           },
           {
             "code": "A9598",
@@ -819,17 +819,17 @@
           {
             "code": "0444U",
             "concept": "Onc sld orgn neo tgsap 361",
-            "retrieval_score": 0.3944973432122746
+            "retrieval_score": 0.39445193064686634
           },
           {
             "code": "0232U",
             "concept": "Cstb full gene analysis",
-            "retrieval_score": 0.3884709454366059
+            "retrieval_score": 0.38841415361856263
           },
           {
             "code": "0172U",
             "concept": "Onc sld tum alys brca1 brca2",
-            "retrieval_score": 0.38834538254588175
+            "retrieval_score": 0.3883030535874837
           },
           {
             "code": "0460U",
@@ -839,7 +839,7 @@
           {
             "code": "0023U",
             "concept": "Onc aml dna detcj/nondetcj",
-            "retrieval_score": 0.3861952329625946
+            "retrieval_score": 0.3862319302736688
           },
           {
             "code": "0467U",
@@ -849,7 +849,7 @@
           {
             "code": "G0103",
             "concept": "Psa screening",
-            "retrieval_score": 0.38559002925476704
+            "retrieval_score": 0.38557866156635245
           },
           {
             "code": "0350U",
@@ -882,14 +882,14 @@
             "retrieval_score": 0.3829630284998585
           },
           {
+            "code": "A9597",
+            "concept": "Pet, dx, for tumor id, noc",
+            "retrieval_score": 0.3820479683447446
+          },
+          {
             "code": "0497U",
             "concept": "Onc prst8 mrna rt-pcr 6genes",
             "retrieval_score": 0.38200530264388693
-          },
-          {
-            "code": "A9597",
-            "concept": "Pet, dx, for tumor id, noc",
-            "retrieval_score": 0.38176720917564855
           },
           {
             "code": "0348U",
@@ -909,12 +909,12 @@
           {
             "code": "80061",
             "concept": "Lipid panel [only when billed with ICD-10-CM code Z13.6]",
-            "retrieval_score": 0.37599776041700816
+            "retrieval_score": 0.37604898534350883
           },
           {
             "code": "0413U",
             "concept": "Onc hl neo opt gen mapg dna",
-            "retrieval_score": 0.37583566178063477
+            "retrieval_score": 0.3757999645504737
           },
           {
             "code": "0530U",
@@ -922,24 +922,24 @@
             "retrieval_score": 0.37471361643248935
           },
           {
-            "code": "97763",
-            "concept": "Orth/prostc mgmt sbsq enc",
-            "retrieval_score": 0.3735805263830056
-          },
-          {
             "code": "0423U",
             "concept": "Psyc genomic alys pnl 26 gen",
             "retrieval_score": 0.37348634261231767
           },
           {
+            "code": "97763",
+            "concept": "Orth/prostc mgmt sbsq enc",
+            "retrieval_score": 0.37346236935552046
+          },
+          {
             "code": "0313U",
             "concept": "Onc pncrs dna&mrna seq 74",
-            "retrieval_score": 0.37305996048601275
+            "retrieval_score": 0.37281839627180646
           },
           {
             "code": "98968",
             "concept": "Ph1 assmt&mgmt nqhp 21-30",
-            "retrieval_score": 0.3723669438446165
+            "retrieval_score": 0.37230156407222514
           },
           {
             "code": "0525U",
@@ -964,7 +964,7 @@
           {
             "code": "G0103",
             "concept": "PSA screening",
-            "retrieval_score": 0.3692889762272628
+            "retrieval_score": 0.3693260406728845
           },
           {
             "code": "0338U",
@@ -974,12 +974,12 @@
           {
             "code": "U0001",
             "concept": "2019-ncov diagnostic p",
-            "retrieval_score": 0.36702901632135254
+            "retrieval_score": 0.3669433584204003
           },
           {
             "code": "98967",
             "concept": "Ph1 assmt&mgmt nqhp 11-20",
-            "retrieval_score": 0.3668044827603888
+            "retrieval_score": 0.36669088220361656
           },
           {
             "code": "0012M",
